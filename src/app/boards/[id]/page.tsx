@@ -14,7 +14,6 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
     }
 
     const tasks: Array<Task> = await getPrismaClient().task.findMany({where: {projectId}});
-    // TODO @to-done can we use useMemo for tasksByStatus?
     const tasksByStatus = (status: TaskStatus) => tasks.filter(t => t.status === status)
 
     return <HeaderContentLayout title={project.name}>
