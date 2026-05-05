@@ -46,7 +46,7 @@ export function EditTaskModal(props: EditTaskModalProps) {
 
             <TextInput label="Title" name="name" defaultValue={props.task?.name} required/>
             <TextArea label="Description" name="description" defaultValue={props.task?.description ?? undefined}/>
-            <SelectInput label="Status" defaultValue={props.task?.status ?? 'TODO'} required options={[
+            <SelectInput label="Status" defaultValue={props.task?.status ?? 'TODO'} required name="status" options={[
                 {name: 'To Do', value: 'TODO'            },
                 {name: 'In Progress', value: 'IN_PROGRESS'},
                 {name: 'Done', value: 'DONE'},

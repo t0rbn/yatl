@@ -1,6 +1,6 @@
 "use server"
 import {getPrismaClient} from "@/utils/prisma-connection";
-import {TaskStatus} from "../../../../prisma/generated/prisma/client";
+import {Prisma, TaskStatus} from "../../../../prisma/generated/prisma/client";
 import {revalidatePath} from "next/cache";
 
 export async function createOrEditTask(formData: FormData): Promise<void> {
@@ -31,7 +31,11 @@ export async function createOrEditTask(formData: FormData): Promise<void> {
         throw new Error(`Task with id ${id} does not exist`);
     }
 
-    await prisma.task.update({where: {id}, data: {name, description, status}});
+    const data: Prisma.TaskUpdateInput = {name, description, status};
+    if (existing.status !== status) {
+        data.statusUpdatedAt = new Date();
+    }
+    await prisma.task.update({where: {id}, data});
     revalidatePath(`/projects/${projectId}`);
 }
 
@@ -57,6 +61,13 @@ export async function updateStatus(taskId: string, status: TaskStatus): Promise<
         throw new Error(`Task with id ${taskId} does not exist`);
     }
 
-    const task = await prisma.task.update({where: {id: taskId}, data: {status}});
+    if (existing.status === status) {
+        return;
+    }
+
+    const task = await prisma.task.update({
+        where: {id: taskId},
+        data: {status, statusUpdatedAt: new Date()}
+    });
     revalidatePath(`/projects/${task.projectId!}`);
 }

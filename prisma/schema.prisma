@@ -15,6 +15,7 @@ datasource db {
 model Task {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
+  statusUpdatedAt DateTime @default(now())
   project Project? @relation(fields: [projectId], references: [id])
   projectId String?
   name String
