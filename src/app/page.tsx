@@ -5,7 +5,9 @@ import {ProjectCard} from "./project-card/ProjectCard";
 import {HeaderContentLayout} from "@/components/header-content-layout/HeaderContentLayout";
 
 export default async function ProjectSPage() {
-    const projects: Array<Project> = await getPrismaClient().project.findMany()
+    const projects: Array<Project> = await getPrismaClient().project.findMany({
+        orderBy: {createdAt: 'asc'}
+    })
 
     return <HeaderContentLayout title="Projects">
         <GridLayout>

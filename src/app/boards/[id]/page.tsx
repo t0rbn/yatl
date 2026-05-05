@@ -13,7 +13,10 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
         return notFound();
     }
 
-    const tasks: Array<Task> = await getPrismaClient().task.findMany({where: {projectId}});
+    const tasks: Array<Task> = await getPrismaClient().task.findMany({
+        where: {projectId},
+        orderBy: {createdAt: 'asc'}
+    });
     const tasksByStatus = (status: TaskStatus) => tasks.filter(t => t.status === status)
 
     return <HeaderContentLayout title={project.name}>

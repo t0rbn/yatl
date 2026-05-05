@@ -14,6 +14,7 @@ datasource db {
 
 model Task {
   id String @id @default(uuid())
+  createdAt DateTime @default(now())
   project Project? @relation(fields: [projectId], references: [id])
   projectId String?
   name String
@@ -23,6 +24,7 @@ model Task {
 
 model Project {
   id String @id @default(uuid())
+  createdAt DateTime @default(now())
   name String
   tasks Task[]
 }
