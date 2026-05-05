@@ -1,4 +1,23 @@
 html.root {
-    background-color: black;
-    color: white;
+    height: 100%;
+
+    background-color: var(--color-elevation-0);
+    color: var(--color-text-base);
+
+    font-size: 20px;
+
+    body {
+        font-size: var(--size-m);
+        line-height: 1.1;
+        margin: 0;
+        padding: 0;
+        color: var(--color-text-base);
+        height: 100%;
+
+        * {
+            box-sizing: border-box;
+        }
+    }
 }
+
+

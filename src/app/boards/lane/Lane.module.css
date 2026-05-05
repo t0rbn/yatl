@@ -1,0 +1,30 @@
+.laneContainer {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    .lane {
+        flex-grow: 1;
+        background-color: var(--color-elevation-1);
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-xs);
+        border-radius: var(--size-m);
+
+        .taskCard {
+            background-color: var(--color-elevation-2);
+            padding: var(--size-m);
+
+            &:first-child {
+                border-top-left-radius: var(--size-m);
+                border-top-right-radius: var(--size-m);
+            }
+
+            &:last-child {
+                border-bottom-left-radius: var(--size-m);
+                border-bottom-right-radius: var(--size-m);
+            }
+        }
+    }
+}

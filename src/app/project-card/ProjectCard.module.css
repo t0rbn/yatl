@@ -1,0 +1,7 @@
+.projectCard {
+    color: var(--color-text-base);
+    text-decoration: none;
+    padding: var(--size-m);
+    border-radius: var(--size-m);
+    background-color: var(--color-elevation-2);
+}
