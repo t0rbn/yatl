@@ -1,7 +1,38 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('/fonts/Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 200 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('/fonts/Source_Code_Pro/SourceCodePro-Italic-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 200 900;
+    font-style: italic;
+    font-display: swap;
+}
+
 html.root {
     height: 100%;
 
-    background-color: var(--color-elevation-0);
     color: var(--color-text-base);
 
     font-size: 20px;
@@ -12,16 +43,30 @@ html.root {
         margin: 0;
         padding: 0;
         color: var(--color-text-base);
+        background-color: var(--color-background);
         height: 100%;
+        font-family: 'Inter', sans-serif;
 
         * {
             box-sizing: border-box;
+            font-size: var(--size-m);
         }
 
-        h1,h2,h3,h4,h5,h6,p {
+        p, strong {
             margin: 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        h1 {
+            font-size: var(--size-xl);
+        }
+
+        h2 {
+            font-size: var(--size-l);
         }
     }
 }
-
-

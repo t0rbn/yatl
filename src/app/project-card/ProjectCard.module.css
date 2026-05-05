@@ -3,5 +3,5 @@
     text-decoration: none;
     padding: var(--size-m);
     border-radius: var(--size-m);
-    background-color: var(--color-elevation-2);
+    background-color: var(--color-elevation-interactive);
 }

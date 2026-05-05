@@ -7,6 +7,7 @@ import {HeaderContentLayout} from "../../../components/layout/header-content-lay
 import {EditProjectButton} from "./EditProjectButton";
 import {AddTaskButton} from "./AddTaskButton";
 import {Project} from "@/types/project";
+import {BackToProjectsButton} from "@/app/boards/[id]/BackToProjectsButtons";
 
 export default async function ProjectsPage({params}: { params: Promise<{ id: string }> }) {
     const projectId = (await params).id;
@@ -25,16 +26,17 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
     function ActionButtons() {
         return <>
             <AddTaskButton projectId={projectId} />
+            <BackToProjectsButton />
             <EditProjectButton project={project ?? undefined}/>
         </>
     }
 
     return <HeaderContentLayout title={project.name} actionButtons={<ActionButtons/>}>
         <div className={styles.board}>
-            <Lane name="To Do" tasks={tasksByStatus('TODO')}/>
-            <Lane name="In Progress" tasks={tasksByStatus('IN_PROGRESS')}/>
-            <Lane name="Done" tasks={tasksByStatus('DONE')}/>
-            <Lane name="Archived" tasks={tasksByStatus('ARCHIVED')}/>
+            <Lane status="TODO" name="To Do" tasks={tasksByStatus('TODO')}/>
+            <Lane status="IN_PROGRESS" name="In Progress" tasks={tasksByStatus('IN_PROGRESS')}/>
+            <Lane status="DONE" name="Done" tasks={tasksByStatus('DONE')}/>
+            <Lane status="ARCHIVED" name="Archived" tasks={tasksByStatus('ARCHIVED')}/>
         </div>
     </HeaderContentLayout>
 

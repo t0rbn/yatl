@@ -7,15 +7,22 @@
 
     .lane {
         flex-grow: 1;
-        background-color: var(--color-elevation-1);
+        background-color: var(--color-elevation-base);
         display: flex;
         flex-direction: column;
         gap: var(--size-xs);
         border-radius: var(--size-m);
 
+
         .taskCard {
-            background-color: var(--color-elevation-2);
+            background-color: var(--color-elevation-interactive);
             padding: var(--size-m);
+
+            @media (hover: hover) {
+                &:hover {
+                    background-color: var(--color-elevation-highlight);
+                }
+            }
 
             &:first-child {
                 border-top-left-radius: var(--size-m);

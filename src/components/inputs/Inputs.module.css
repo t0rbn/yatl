@@ -1,0 +1,20 @@
+label.label {
+    > * {
+        display: block;
+        width: 100%;
+    }
+
+    > span {
+        font-size: var(--size-s)
+    }
+
+    &:has(*[required]) > span:after {
+        content: '*';
+        color: var(--color-accent-error);
+    }
+
+    input, textarea, select {
+        padding: var(--size-xs)
+
+    }
+}
