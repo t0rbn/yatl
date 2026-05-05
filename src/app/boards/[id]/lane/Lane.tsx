@@ -1,5 +1,6 @@
 import {Task} from "@/types/task";
 import styles from "./Lane.module.css";
+import {VerticalContentLayout} from "@/components/layout/vertical-content/VerticalContentLayout";
 
 interface LaneProps {
     name: string;
@@ -8,8 +9,10 @@ interface LaneProps {
 
 function TaskCard(props: {task: Task}) {
     return <div className={styles.taskCard}>
-        <strong>{props.task.name}</strong>
-        <p>{props.task.description}</p>
+        <VerticalContentLayout>
+            <strong>{props.task.name}</strong>
+            <p>{props.task.description}</p>
+        </VerticalContentLayout>
     </div>
 }
 
