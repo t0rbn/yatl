@@ -1,6 +1,7 @@
 "use client";
 
 import React, {createContext, PropsWithChildren, useCallback, useContext, useState} from "react";
+import styles from "./Modal.module.css";
 
 interface ModalProps {
     title: string,
@@ -10,38 +11,41 @@ interface ModalProps {
 
 interface ModalContextValue {
     show: (modal: ModalProps) => void;
+    close: () => void;
+    closeAll: () => void;
 }
 
 const ModalContext = createContext<ModalContextValue | null>(null);
 
 export function ModalProvider({children}: PropsWithChildren) {
-    const [modal, setModal] = useState<ModalProps | null>(null);
+    const [modals, setModals] = useState<Array<ModalProps>>([]);
+    const currentModal = modals.length ? modals[modals.length - 1] : null;
 
     const show = useCallback((next: ModalProps) => {
-        setModal(prev => {
-            if (prev !== null) {
-                throw new Error("A modal is already open");
-            }
-            return next;
-        });
+        setModals(prev => [...prev, next]);
     }, []);
 
     const close = useCallback(() => {
-        setModal(null);
+        setModals((m) => m.slice(0, -1));
     }, []);
 
-    const isCloseable = modal?.closeable !== false;
+    const closeAll = useCallback(() => {
+        setModals([]);
+    }, []);
 
     return (
-        <ModalContext.Provider value={{show}}>
+        <ModalContext.Provider value={{show, close, closeAll}}>
             {children}
-            {modal && (
-                <div role="dialog" aria-modal="true" aria-label={modal.title}>
-                    <h2>{modal.title}</h2>
-                    <div>{modal.content}</div>
-                    {isCloseable && (
-                        <button type="button" onClick={close}>Close</button>
-                    )}
+            {currentModal && (
+                <div className={styles.backDrop}>
+                    <div role="dialog" aria-modal="true" aria-label={currentModal.title} className={styles.window}>
+                        <header>
+                            <h2>{currentModal.title}</h2>
+                            {currentModal.closeable !== false && (<button type="button" onClick={close}>Close</button>)}
+                        </header>
+                        <div>{currentModal.content}</div>
+                    </div>
+
                 </div>
             )}
         </ModalContext.Provider>

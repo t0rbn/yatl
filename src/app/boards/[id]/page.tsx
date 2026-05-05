@@ -1,9 +1,11 @@
 import {getPrismaClient} from "@/utils/prisma-connection";
 import {Task, TaskStatus} from "@/types/task";
-import Lane from "@/app/boards/lane/Lane";
+import Lane from "./lane/Lane";
 import styles from "@/app/boards/[id]/page.module.css";
 import {notFound} from "next/navigation";
 import {HeaderContentLayout} from "@/components/header-content-layout/HeaderContentLayout";
+import {DeleteProjectButton} from "@/app/boards/[id]/delete-project-button/DeleteProjectButton";
+import {AddTaskButton} from "@/app/boards/[id]/add-task-button/AddTaskButton";
 
 export default async function ProjectsPage({params}: { params: Promise<{ id: string }> }) {
     const projectId = (await params).id;
@@ -19,7 +21,14 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
     });
     const tasksByStatus = (status: TaskStatus) => tasks.filter(t => t.status === status)
 
-    return <HeaderContentLayout title={project.name}>
+    function ActionButtons() {
+        return <>
+            <AddTaskButton projectId={projectId} />
+            <DeleteProjectButton projectId={projectId}/>
+        </>
+    }
+
+    return <HeaderContentLayout title={project.name} actionButtons={<ActionButtons/>}>
         <div className={styles.board}>
             <Lane name="To Do" tasks={tasksByStatus('TODO')}/>
             <Lane name="In Progress" tasks={tasksByStatus('IN_PROGRESS')}/>

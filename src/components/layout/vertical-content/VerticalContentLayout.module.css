@@ -1,0 +1,6 @@
+.verticalContentLayout {
+    > * {
+        display: block;
+        margin-bottom: var(--size-s);
+    }
+}

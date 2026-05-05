@@ -1,0 +1,29 @@
+.backDrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(var(--size-xs));
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .window {
+        min-width: 30svw;
+        background-color: vaR(--color-elevation-2);
+        padding: var(--size-m);
+        border-radius: var(--size-m);
+
+        header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--size-l)
+        }
+    }
+}

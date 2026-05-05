@@ -1,12 +1,12 @@
 html.root {
-    --color-elevation-0: hsl(0 0% 10%);
-    --color-elevation-1: hsl(0 0% 20%);
-    --color-elevation-2: hsl(0 0% 30%);
-    --color-elevation-3: hsl(0 0% 40%);
-    --color-elevation-4: hsl(0 0% 50%);
+    --color-elevation-0: hsl(0 0% 80%);
+    --color-elevation-1: hsl(0 0% 90%);
+    --color-elevation-2: hsl(0 0% 100%);
+    /*--color-elevation-3: hsl(0 0% 95%);*/
+    /*--color-elevation-4: hsl(0 0% 100%);*/
 
-    --color-text-base: hsl(0 0% 90%);
-    --color-text-hightlight: hsl(0 0% 100%);
+    --color-text-base: hsl(0 0% 20%);
+    --color-text-hightlight: hsl(0 0% 0%);
 
     --color-accent-base: hsl(210 100% 50%);
     --color-accent-ok: hsl(120 100% 50%);
@@ -15,7 +15,7 @@ html.root {
 
     --size-xxs: 0.1rem;
     --size-xs: .25rem;
-    --size-s: 5rem;
+    --size-s: .5rem;
     --size-m: 1rem;
     --size-l: 1.5rem;
     --size-xl: 2rem;

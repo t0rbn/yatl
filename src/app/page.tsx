@@ -3,6 +3,7 @@ import {Project} from "../types/project";
 import {GridLayout} from "../components/layout/grid/GridLayout";
 import {ProjectCard} from "./project-card/ProjectCard";
 import {HeaderContentLayout} from "@/components/header-content-layout/HeaderContentLayout";
+import {CreateProjectCard} from "@/app/create-project-card/CreateProjectCard";
 
 export default async function ProjectSPage() {
     const projects: Array<Project> = await getPrismaClient().project.findMany({
@@ -12,6 +13,7 @@ export default async function ProjectSPage() {
     return <HeaderContentLayout title="Projects">
         <GridLayout>
             {projects.map(project => <ProjectCard key={project.id} project={project}/>)}
+            <CreateProjectCard />
         </GridLayout>
     </HeaderContentLayout>
 }

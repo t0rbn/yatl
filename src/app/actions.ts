@@ -3,7 +3,7 @@
 import {getPrismaClient} from "@/utils/prisma-connection";
 import {revalidatePath} from "next/cache";
 
-export async function addProject(formData: FormData): Promise<void> {
+export async function createProject(formData: FormData): Promise<string> {
 
     const name = formData.get('name') as string;
 
@@ -13,9 +13,10 @@ export async function addProject(formData: FormData): Promise<void> {
     }
 
     const prisma = getPrismaClient();
-    await prisma.project.create({data: {name}});
+    const created = await prisma.project.create({data: {name}});
 
     revalidatePath('/projects');
+    return created.id;
 }
 
 

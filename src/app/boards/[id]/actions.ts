@@ -3,21 +3,26 @@ import {getPrismaClient} from "@/utils/prisma-connection";
 import {TaskStatus} from "../../../../prisma/generated/prisma/client";
 import {revalidatePath} from "next/cache";
 
-export async function createTask(formData: FormData): Promise<void> {
+export async function createOrEditTask(formData: FormData): Promise<void> {
+    const prisma = getPrismaClient();
 
     const id = formData.get('id') as string | null;
     const projectId = formData.get('projectId') as string;
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
+    const status = formData.get('status') as TaskStatus;
 
-    if (!projectId || !name) {
-        throw new Error('Missing required fields');
+
+    if (!projectId && !id) {
+        throw new Error('Missing required identifier');
+    }
+    if (!name) {
+        throw new Error('Missing required field: name');
     }
 
-    const prisma = getPrismaClient();
 
     if (!id) {
-        await prisma.task.create({data: {projectId, name, description}});
+        await prisma.task.create({data: {projectId, name, description, status}});
         return;
     }
 
@@ -26,7 +31,7 @@ export async function createTask(formData: FormData): Promise<void> {
         throw new Error(`Task with id ${id} does not exist`);
     }
 
-    await prisma.task.update({where: {id}, data: {projectId, name, description}});
+    await prisma.task.update({where: {id}, data: {name, description, status}});
     revalidatePath(`/projects/${projectId}`);
 }
 
