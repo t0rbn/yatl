@@ -4,7 +4,7 @@ import {Task} from "@/types/task";
 import {VerticalContentLayout} from "@/components/layout/vertical-content/VerticalContentLayout";
 import styles from "./Lane.module.css"
 import {useModal} from "@/components/modal/modalContext";
-import {EditTaskModal} from "@/app/boards/[id]/edit-task-modal/EditTaskModal";
+import {EditTaskModal} from "../EditTaskModal";
 
 interface LaneProps {
     name: string;

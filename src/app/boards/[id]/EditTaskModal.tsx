@@ -31,12 +31,12 @@ export function EditTaskModal(props: EditTaskModalProps) {
     }
 
     const handleDeleteButtonClicked = () => {
-        const arsch = <VerticalContentLayout>
+        const modalContent = <VerticalContentLayout>
             <button onClick={() => handleDelete()}>Delete</button>
             <button onClick={() => modal.close()}>close</button>
         </VerticalContentLayout>
 
-        modal.show({title: 'Delete Task', content: arsch})
+        modal.show({title: 'Delete Task', content: modalContent})
     }
 
     return <form action={handleAddOrUpdate}>

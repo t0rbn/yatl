@@ -3,14 +3,15 @@ import {Task, TaskStatus} from "@/types/task";
 import Lane from "./lane/Lane";
 import styles from "@/app/boards/[id]/page.module.css";
 import {notFound} from "next/navigation";
-import {HeaderContentLayout} from "@/components/header-content-layout/HeaderContentLayout";
-import {DeleteProjectButton} from "@/app/boards/[id]/delete-project-button/DeleteProjectButton";
-import {AddTaskButton} from "@/app/boards/[id]/add-task-button/AddTaskButton";
+import {HeaderContentLayout} from "../../../components/layout/header-content-layout/HeaderContentLayout";
+import {EditProjectButton} from "./EditProjectButton";
+import {AddTaskButton} from "./AddTaskButton";
+import {Project} from "@/types/project";
 
 export default async function ProjectsPage({params}: { params: Promise<{ id: string }> }) {
     const projectId = (await params).id;
 
-    const project = await getPrismaClient().project.findUnique({where: {id: projectId}});
+    const project: Project | null = await getPrismaClient().project.findUnique({where: {id: projectId}});
     if (!project) {
         return notFound();
     }
@@ -24,7 +25,7 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
     function ActionButtons() {
         return <>
             <AddTaskButton projectId={projectId} />
-            <DeleteProjectButton projectId={projectId}/>
+            <EditProjectButton project={project ?? undefined}/>
         </>
     }
 

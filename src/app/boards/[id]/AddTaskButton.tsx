@@ -1,7 +1,7 @@
 'use client';
 
 import {useModal} from "@/components/modal/modalContext";
-import {EditTaskModal} from "@/app/boards/[id]/edit-task-modal/EditTaskModal";
+import {EditTaskModal} from "@/app/boards/[id]/EditTaskModal";
 
 interface AddTaskButtonProps {
     projectId: string
