@@ -7,30 +7,26 @@
 
     .lane {
         flex-grow: 1;
-        background-color: var(--color-surface-dropped);
+        background-color: var(--color-surface-elevated);
         display: flex;
         flex-direction: column;
         gap: var(--size-xxs);
         padding: var(--size-xs);
-        border-radius: calc(var(--size-m) + var(--size-xs));
-        overflow: auto;
-        box-shadow: var(--shadow-dropped);
         border: var(--border-default);
 
+        border-radius: calc(var(--size-m) + var(--size-xs));
+        overflow: auto;
+        box-shadow: var(--shadow-default);
+        background-image: vaR(--gradient-glass);
+        backdrop-filter: var(--blur-glass);
 
 
         .taskCard {
-            background-color: var(--color-surface-elevated);
+            background-color: var(--color-surface-interactive);
+
             padding: var(--size-m);
             cursor: pointer;
-            border: var(--border-default);
-            box-shadow: var(--shadow-default);
 
-            @media (hover: hover) {
-                &:hover {
-                    background-color: var(--color-surface-elevated-highlight);
-                }
-            }
 
             &:first-child {
                 border-top-left-radius: var(--size-m);

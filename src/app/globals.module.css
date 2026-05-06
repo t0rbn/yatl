@@ -1,22 +1,16 @@
 html.root {
+    --color-surface-elevated: hsl(0 0% 100% / .5);
+    --color-surface-interactive: hsl(0 0% 100% / .9);
 
-    --background-gradient: linear-gradient(45deg, hsl(215 100% 95%), hsl(154 100% 95%));
-
-    --color-surface-elevated: hsl(0 0% 100% / .75);
-    --color-surface-elevated-highlight: hsl(0 0% 100%);
-    --color-surface-dropped: hsl(0 0% 0% / .1);
-
-    --color-text-base: hsl(0 0% 20%);
+    --color-text-base: hsl(0 0% 25%);
     --color-text-hightlight: hsl(0 0% 0%);
 
-    --color-accent-base: hsl(210 100% 75%);
-    --color-accent-base-highlight: hsl(210 100% 70%);
+    --color-accent-base: hsl(210 100% 50%);
+    --color-accent-ok: hsl(120 100% 50%);
+    --color-accent-danger: hsl(0 100% 50%);
 
-    --color-accent-ok: hsl(120 100% 75%);
-    --color-accent-ok-highlight: hsl(120 100% 70%);
-
-    --color-accent-danger: hsl(0 100% 75%);
-    --color-accent-dang-highlight: hsl(0 100% 70%);
+    --gradient-glass: linear-gradient(-45deg, hsl(0 0% 0% / .1), hsl(0 0% 1000% / .1));
+    --blur-glass: blur(var(--size-s));
 
     --size-xxs: 0.1rem;
     --size-xs: .5rem;
@@ -26,11 +20,11 @@ html.root {
     --size-xl: 2rem;
     --size-xxl: 5rem;
 
-    --border-default: var(--size-xxs) solid hsl(0 0% 0% / .25);
+    --border-default: var(--size-xxs) solid hsl(0 0% 100% / .5);
     /*--border-default: none;*/
 
 
-    --shadow-default: 0 0 var(--size-s) hsl(0 0% 0% / .1);
-    /*--shadow-dropped: 0 0 var(--size-s) hsl(0 0% 0% / .1) inset;*/
+    --shadow-default: 0 0 var(--size-m) hsl(0 0% 0% / .25);
+    /*--shadow-dropped: 0 0 var(--size-xs) hsl(0 0% 0% / .25) inset;*/
 }
 

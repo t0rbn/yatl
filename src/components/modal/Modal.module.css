@@ -5,7 +5,7 @@
     bottom: 0;
     right: 0;
     background-color: hsl(0 0% 0% / .25);
-    backdrop-filter: blur(var(--size-xs));
+    backdrop-filter: var(--blur-glass);
 
     display: flex;
     flex-direction: column;
@@ -15,9 +15,12 @@
     .window {
         width: 30rem;
         max-width: 90svw;
-        background-color: var(--color-background);
+        background-color: var(--color-surface-interactive);
+        background-image: vaR(--gradient-glass);
         padding: var(--size-m);
         border-radius: var(--size-m);
+        border: var(--border-default);
+        box-shadow: var(--shadow-default);
 
         header {
             display: flex;

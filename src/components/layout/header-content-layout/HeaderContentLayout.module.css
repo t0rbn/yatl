@@ -11,7 +11,10 @@
         gap: var(--size-m);
         padding: var(--size-m);
         background-color: var(--color-surface-elevated);
+        border-bottom: var(--border-default);
         box-shadow: var(--shadow-default);
+        background-image: vaR(--gradient-glass);
+
 
         h1 {
             flex-grow: 1;

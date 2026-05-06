@@ -3,7 +3,7 @@
     border: none;
     outline: none;
 
-    background-color: var(--color-elevation-interactive);
+    background-color: var(--color-surface-interactive);
     padding: var(--size-s) var(--size-l);
     font-size: var(--size-m);
     line-height: 1;
@@ -15,28 +15,21 @@
     }
 
     &:hover {
-        background-color: var(--color-elevation-highlight);
+        background-color: var(--color-surface-interactive);
     }
 
     &.primary {
         background-color: var(--color-accent-base);
-        &:hover {
-            background-color: var(--color-accent-base-highlight);
-        }
+
     }
 
     &.ok {
         background-color: var(--color-accent-ok);
-        &:hover {
-            background-color: var(--color-accent-ok-highlight);
-        }
+
 
     }
 
     &.danger {
         background-color: var(--color-accent-danger);
-        &:hover {
-            background-color: var(--color-accent-danger-highlight);
-        }
     }
 }

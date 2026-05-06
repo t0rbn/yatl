@@ -11,22 +11,21 @@ label.label {
 
     &:has(*[required]) > span:after {
         content: '*';
-        color: var(--color-accent-error);
+        color: var(--color-accent-danger);
     }
 
     input, textarea, select {
         padding: var(--size-xs);
-        /*background-color: vaR(--color-elevation-interactive);*/
-        border: var(--size-xxs) solid var(--color-elevation-interactive);
+        background-color: vaR(--color-surface-interactive);
+        border: var(--border-default);
         outline: none;
         appearance: none;
         resize: none;
-        background-color: transparent;
         border-radius: var(--size-s);
 
         &:focus, &:focus-within {
-            border: var(--size-xxs) solid var(--color-elevation-highlight);
-            background-color: var(--color-elevation-base);
+            border: var(--size-xxs) solid var(--color-surface-interactive);
+            background-color: var(--color-surface-interactive);
             outline: none;
         }
     }
