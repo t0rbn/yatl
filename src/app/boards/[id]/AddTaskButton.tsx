@@ -2,6 +2,7 @@
 
 import {useModal} from "@/components/modal/modalContext";
 import {EditTaskModal} from "@/app/boards/[id]/EditTaskModal";
+import {Button} from "@/components/buttons/Buttons";
 
 interface AddTaskButtonProps {
     projectId: string
@@ -10,7 +11,5 @@ interface AddTaskButtonProps {
 export function AddTaskButton(props: AddTaskButtonProps) {
     const modal = useModal();
 
-    return <button onClick={() => modal.show({title: 'Add Task', content: <EditTaskModal/>})}>
-        add task
-    </button>
+    return <Button  color="primary" label="New task"  onClick={() => modal.show({title: 'Add Task', content: <EditTaskModal/>})} />
 }

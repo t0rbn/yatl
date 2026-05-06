@@ -13,7 +13,8 @@
     justify-content: center;
 
     .window {
-        min-width: 30svw;
+        width: 30rem;
+        max-width: 90svw;
         background-color: var(--color-background);
         padding: var(--size-m);
         border-radius: var(--size-m);

@@ -5,7 +5,8 @@ label.label {
     }
 
     > span {
-        font-size: var(--size-s)
+        font-size: var(--size-s);
+        margin-bottom: var(--size-xs);
     }
 
     &:has(*[required]) > span:after {
@@ -14,7 +15,19 @@ label.label {
     }
 
     input, textarea, select {
-        padding: var(--size-xs)
+        padding: var(--size-xs);
+        /*background-color: vaR(--color-elevation-interactive);*/
+        border: var(--size-xxs) solid var(--color-elevation-interactive);
+        outline: none;
+        appearance: none;
+        resize: none;
+        background-color: transparent;
+        border-radius: var(--size-s);
 
+        &:focus, &:focus-within {
+            border: var(--size-xxs) solid var(--color-elevation-highlight);
+            background-color: var(--color-elevation-base);
+            outline: none;
+        }
     }
 }

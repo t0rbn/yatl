@@ -22,10 +22,14 @@ function TaskCard(props: { task: Task }) {
     }
 
     const handleDragStart = (ev: any) => {
-         ev.dataTransfer.setData("text/plain", props.task.id);
+        var img = new Image();
+        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+        ev.dataTransfer.setDragImage(img, 0, 0);
+
+        ev.dataTransfer.setData("text/plain", props.task.id);
     }
 
-    return <div className={styles.taskCard} onClick={() => handleClick()} draggable onDragStart={handleDragStart}>
+    return <div className={styles.taskCard} onClick={() => handleClick()} draggable onDragStart={handleDragStart} role="button">
         <VerticalContentLayout>
             <strong>{props.task.name}</strong>
             <p>{props.task.description}</p>

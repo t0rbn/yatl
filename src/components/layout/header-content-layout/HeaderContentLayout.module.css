@@ -10,7 +10,8 @@
         justify-content: space-between;
         gap: var(--size-m);
         padding: var(--size-m);
-        background-color: var(--color-elevation-base);
+        background-color: var(--color-surface-elevated);
+        box-shadow: var(--shadow-default);
 
         h1 {
             flex-grow: 1;
