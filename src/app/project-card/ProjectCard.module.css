@@ -1,7 +1,18 @@
 .projectCard {
     color: var(--color-text-base);
     text-decoration: none;
-    padding: var(--size-m);
+    padding: var(--size-xxl) var(--size-m);
     border-radius: var(--size-m);
-    background-color: var(--color-elevation-interactive);
+
+
+    background-color: var(--color-surface-elevated);
+    background-image: vaR(--gradient-glass);
+    border: var(--border-glass);
+    backdrop-filter: vaR(--blur-glass);
+
+    @media(hover:hover) {
+        &:hover {
+            background-image: var(--gradient-hover);
+        }
+    }
 }

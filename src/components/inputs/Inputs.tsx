@@ -8,7 +8,7 @@ interface InputProps<T> {
 }
 
 export function HiddenInput(props: {name: string, value: any}) {
-    return <div><input type="hidden" readOnly name={props.name} value={props.value}/></div>
+    return <input type="hidden" readOnly name={props.name} value={props.value}/>
 }
 
 export function TextInput(props: InputProps<string>) {

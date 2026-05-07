@@ -4,7 +4,6 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: hsl(0 0% 0% / .25);
     backdrop-filter: var(--blur-glass);
 
     display: flex;
@@ -15,19 +14,22 @@
     .window {
         width: 30rem;
         max-width: 90svw;
-        background-color: var(--color-surface-interactive);
-        background-image: vaR(--gradient-glass);
+
+        background-color: var(--color-surface-elevated);
+        background-image: var(--gradient-glass);
+        border: var(--border-glass);
+
         padding: var(--size-m);
         border-radius: var(--size-m);
-        border: var(--border-default);
         box-shadow: var(--shadow-default);
+        position: relative;
 
         header {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--size-l)
+            margin-bottom: var(--size-m)
         }
     }
 }

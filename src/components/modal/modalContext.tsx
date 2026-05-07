@@ -2,6 +2,7 @@
 
 import React, {createContext, PropsWithChildren, useCallback, useContext, useState} from "react";
 import styles from "./Modal.module.css";
+import {Button} from "@/components/buttons/Buttons";
 
 interface ModalProps {
     title: string,
@@ -41,7 +42,7 @@ export function ModalProvider({children}: PropsWithChildren) {
                     <div role="dialog" aria-modal="true" aria-label={currentModal.title} className={styles.window}>
                         <header>
                             <h2>{currentModal.title}</h2>
-                            {currentModal.closeable !== false && (<button type="button" onClick={close}>Close</button>)}
+                            {currentModal.closeable !== false && (<Button icon="close" variant="text" color="danger"  onClick={close}/>)}
                         </header>
                         <div>{currentModal.content}</div>
                     </div>

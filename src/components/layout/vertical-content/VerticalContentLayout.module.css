@@ -1,6 +1,6 @@
 .verticalContentLayout {
-    > * {
-        display: block;
-        margin-bottom: var(--size-m);
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--size-m)
 }

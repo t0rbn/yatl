@@ -6,6 +6,7 @@ import {createOrEditTask, deleteTask} from "@/app/boards/[id]/actions";
 import {useParams, useRouter} from "next/navigation";
 import {useModal} from "@/components/modal/modalContext";
 import {HiddenInput, SelectInput, TextArea, TextInput} from "@/components/inputs/Inputs";
+import {Button, ButtonGroup} from "@/components/buttons/Buttons";
 
 interface EditTaskModalProps {
     task?: Task
@@ -33,8 +34,11 @@ export function EditTaskModal(props: EditTaskModalProps) {
 
     const handleDeleteButtonClicked = () => {
         const modalContent = <VerticalContentLayout>
-            <button onClick={() => handleDelete()}>Delete</button>
-            <button onClick={() => modal.close()}>close</button>
+            <p>Are you sure to delete &quot;{props.task?.name}&quot;?</p>
+            <ButtonGroup
+                left={<Button onClick={() => modal.close()} label="Cancel" />}
+                right={<Button color="danger" onClick={() => handleDelete()} label="Delete" /> }
+            />
         </VerticalContentLayout>
 
         modal.show({title: 'Delete Task', content: modalContent})
@@ -53,8 +57,11 @@ export function EditTaskModal(props: EditTaskModalProps) {
                 {name: 'Archived', value: 'ARCHIVED'},
             ]} />
 
-            {props.task?.id ? <button onClick={handleDeleteButtonClicked}>Delete</button> : null}
-            <button type="submit">Save</button>
+            <ButtonGroup
+                left={<>{props.task?.id ? <Button  variant="text" color="danger" onClick={handleDeleteButtonClicked} label="Delete" /> : null}</>}
+                right={<Button type="submit" label="Save" color="primary" />}
+            />
+
         </VerticalContentLayout>
     </form>
 }

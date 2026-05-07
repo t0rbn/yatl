@@ -2,7 +2,7 @@
 
 import {useModal} from "@/components/modal/modalContext";
 import {Project} from "@/types/project";
-import {EditProjectModal} from "@/app/boards/EditProjectModal";
+import {EditProjectModal} from "../../EditProjectModal";
 import {Button} from "@/components/buttons/Buttons";
 
 interface EditProjectButtonProps {
@@ -12,7 +12,7 @@ interface EditProjectButtonProps {
 export function EditProjectButton(props: EditProjectButtonProps) {
     const modal = useModal();
 
-    return <Button label="edit" onClick={() => modal.show({title: 'Edit Project', content: <EditProjectModal project={props.project}/>})}/>
+    return <Button icon="edit" onClick={() => modal.show({title: 'Edit Project', content: <EditProjectModal project={props.project}/>})}/>
 
 
 }

@@ -17,15 +17,15 @@ label.label {
     input, textarea, select {
         padding: var(--size-xs);
         background-color: vaR(--color-surface-interactive);
-        border: var(--border-default);
+        border: var(--border-interactive);
         outline: none;
         appearance: none;
         resize: none;
-        border-radius: var(--size-s);
+        border-radius: var(--size-xs);
+        font: inherit;
 
         &:focus, &:focus-within {
-            border: var(--size-xxs) solid var(--color-surface-interactive);
-            background-color: var(--color-surface-interactive);
+            background-image: var(--gradient-hover);
             outline: none;
         }
     }

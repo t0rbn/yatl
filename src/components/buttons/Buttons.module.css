@@ -1,35 +1,76 @@
 .button {
+    --button-color: var(--color-surface-interactive);
+
     appearance: none;
     border: none;
     outline: none;
 
-    background-color: var(--color-surface-interactive);
+    background-color: var(--button-color);
+
     padding: var(--size-s) var(--size-l);
     font-size: var(--size-m);
     line-height: 1;
 
     border-radius: calc(var(--size-s) * 2 + vaR(--size-m));
+    background-image: var(--gradient-glass);
+    border: var(--border-interactive);
     cursor: pointer;
+
+
+    @media (hover: hover) {
+        &:hover {
+            background-image: var(--gradient-hover);
+        }
+    }
+
     * {
         cursor: pointer;
     }
 
-    &:hover {
-        background-color: var(--color-surface-interactive);
+    .icon {
+        font-size: var(--size-m);
+    }
+
+    &:not(:has(.label)) {
+        padding: 0;
+        height: calc(var(--size-m) + (2 * var(--size-s)));
+        aspect-ratio: 1;
     }
 
     &.primary {
-        background-color: var(--color-accent-base);
-
+        --button-color: var(--color-accent-base);
     }
 
     &.ok {
-        background-color: var(--color-accent-ok);
-
-
+        --button-color: var(--color-accent-ok);
     }
 
     &.danger {
-        background-color: var(--color-accent-danger);
+        --button-color: var(--color-accent-danger);
+    }
+
+    &.textVariant {
+        background-color: transparent;
+        background-image: none;
+        border: none;
+        color: var(--button-color);
+        padding: 0;
+
+        &:not(:has(.label)) .icon {
+            font-size: vaR(--size-l);
+            height: unset;
+            aspect-ratio: unset;
+        }
+    }
+}
+
+.buttonGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .spacer {
+        flex-grow: 1
     }
 }

@@ -30,6 +30,13 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Material Symbols';
+    font-style: normal;
+    font-display: block;
+    src: url('/fonts/MaterialSymbols/MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf');
+}
+
 html.root {
     height: 100%;
 
@@ -43,9 +50,7 @@ html.root {
         margin: 0;
         padding: 0;
         color: var(--color-text-base);
-        background-image: url("/background.jpg");
-        background-size: cover;
-        background-position: center center;
+        background-image: url('/background.jpg');
 
         height: 100%;
         font-family: 'Inter', sans-serif;
@@ -62,6 +67,7 @@ html.root {
         h1, h2, h3, h4, h5, h6 {
             margin: 0;
             font-family: 'Source Code Pro', monospace;
+            font-weight: 900;
         }
 
         h1, h2, h3, h4, h5, h6, strong {
