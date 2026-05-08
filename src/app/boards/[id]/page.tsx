@@ -1,3 +1,5 @@
+import type {Metadata} from "next";
+import {cache} from "react";
 import {getPrismaClient} from "@/utils/prisma-connection";
 import {Task, TaskStatus} from "@/types/task";
 import Lane from "./lane/Lane";
@@ -9,10 +11,23 @@ import {AddTaskButton} from "./AddTaskButton";
 import {Project} from "@/types/project";
 import {BackToProjectsButton} from "@/app/boards/[id]/BackToProjectsButtons";
 
+const getProject = cache((id: string) =>
+    getPrismaClient().project.findUnique({where: {id}})
+);
+
+export async function generateMetadata({params}: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const {id} = await params;
+    const project = await getProject(id);
+    if (!project) {
+        return {title: "Project not found | YATL"};
+    }
+    return {title: `${project.name} | YATL`};
+}
+
 export default async function ProjectsPage({params}: { params: Promise<{ id: string }> }) {
     const projectId = (await params).id;
 
-    const project: Project | null = await getPrismaClient().project.findUnique({where: {id: projectId}});
+    const project: Project | null = await getProject(projectId);
     if (!project) {
         return notFound();
     }
@@ -25,8 +40,8 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
 
     function ActionButtons() {
         return <>
-            <AddTaskButton projectId={projectId} />
-            <BackToProjectsButton />
+            <AddTaskButton projectId={projectId}/>
+            <BackToProjectsButton/>
             <EditProjectButton project={project ?? undefined}/>
         </>
     }
