@@ -1,17 +1,18 @@
 html.root {
 
-    --gradient-bg: linear-gradient(to top , hsl(0, 100%, 90%), hsl(40, 100%, 90%));
+    --color-bg-top: hsl(200, 75%, 75%);
+    --color-bg-left: hsl(200, 75%, 75%);
+    --color-bg-right: hsl(300, 75%, 75%);
 
-    --color-surface-semi-elevated: transparent;
-    --color-surface-elevated: hsl(0 0% 100% / .75);
-    --color-surface-interactive: hsl(0 0% 50% / .25);
+    --gradient-background: linear-gradient(to bottom, var(--color-bg-top),transparent), linear-gradient(to right, var(--color-bg-left),var(--color-bg-right));
 
-    --color-text-base: hsl(0 0% 20%);
-    --color-text-hightlight: hsl(0 0% 0%);
+    --gradient-glass: linear-gradient(to bottom, hsl(0 0% 100% / .25),   hsl(0 0% 90% / .25));
+    --color-surface-interactive: hsl(0 0% 100% / .5);
 
-    --color-accent-base: hsl(210 100% 50% );
-    --color-accent-ok: hsl(120 100% 50% );
-    --color-accent-danger: hsl(0 100% 50% );
+    --color-text-base: hsl(0 0% 20% / .9);
+    --color-text-hightlight: hsl(0 0% 0% / .9);
+
+    --color-accent-danger: hsl(0 100% 50%);
 
     --size-xxs: .1rem;
     --size-xs: .5rem;
@@ -21,15 +22,16 @@ html.root {
     --size-xl: 2rem;
     --size-xxl: 5rem;
 
-    --gradient-glass: linear-gradient(to bottom,   hsl(0 0% 100% / .1), hsl(0 0% 0% / .1));
-    --gradient-hover: linear-gradient(hsl(0 0% 0% / .05 ));
 
-    --blur-glass: blur(var(--size-l));
-    --border-glass: var(--size-xxs) solid hsl(0 0% 100% / .25);
-    --border-interactive:var(--size-xxs) solid hsl(0 0% 0% / .1);
+    --gradient-hover:  linear-gradient(hsl(0 0% 100% / .25));
+
+    --border-glass: var(--size-xxs) solid hsl(0 0% 100% / .5);
     /*--border-default: none;*/
 
 
-    --shadow-default: 0 0 var(--size-m) hsl(0 0% 0% / .5);
+    --shadow-default: 0 0 var(--size-l) hsl(0 0% 0% / .25) ;
+    --blur-glass: blur(var(--size-l));
+
+    --animation-duration: .25s;
 }
 

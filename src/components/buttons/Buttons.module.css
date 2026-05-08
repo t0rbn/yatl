@@ -10,10 +10,9 @@
     padding: var(--size-s) var(--size-l);
     font-size: var(--size-m);
     line-height: 1;
+    color: var(--color-text-base);
 
     border-radius: calc(var(--size-s) * 2 + vaR(--size-m));
-    background-image: var(--gradient-glass);
-    border: var(--border-interactive);
     cursor: pointer;
 
 
@@ -37,13 +36,6 @@
         aspect-ratio: 1;
     }
 
-    &.primary {
-        --button-color: var(--color-accent-base);
-    }
-
-    &.ok {
-        --button-color: var(--color-accent-ok);
-    }
 
     &.danger {
         --button-color: var(--color-accent-danger);

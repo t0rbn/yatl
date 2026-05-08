@@ -38,11 +38,10 @@
 }
 
 html.root {
-    height: 100%;
-
-    color: var(--color-text-base);
-
     font-size: 20px;
+
+    height: 100%;
+    color: var(--color-text-base);
 
     body {
         font-size: var(--size-m);
@@ -50,10 +49,14 @@ html.root {
         margin: 0;
         padding: 0;
         color: var(--color-text-base);
-        background-image: url('/background.jpg');
 
         height: 100%;
         font-family: 'Inter', sans-serif;
+
+        background-image: var(--gradient-background);
+        /*background-image: url("/background.jpg");*/
+        /*background-position: center center;*/
+        /*background-size: cover;*/
 
         * {
             box-sizing: border-box;

@@ -4,12 +4,12 @@
     left: 0;
     bottom: 0;
     right: 0;
-    backdrop-filter: var(--blur-glass);
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    backdrop-filter: vaR(--blur-glass);
 
     .window {
         width: 30rem;

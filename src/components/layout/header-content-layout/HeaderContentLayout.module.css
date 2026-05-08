@@ -8,13 +8,12 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        gap: var(--size-m);
+        gap: var(--size-s);
         padding: var(--size-m);
-        background-color: var(--color-surface-elevated);
+
+        background-image: var(--gradient-glass);
         border-bottom: var(--border-glass);
         box-shadow: var(--shadow-default);
-        background-image: vaR(--gradient-glass);
-
 
         h1 {
             flex-grow: 1;
