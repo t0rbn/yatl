@@ -14,7 +14,7 @@ interface LaneProps {
     tasks: Task[];
 }
 
-function TaskCard(props: { task: Task }) {
+function TaskCard(props: { task: Task , index: number}) {
     const modal = useModal()
 
     const handleClick = () => {
@@ -29,7 +29,7 @@ function TaskCard(props: { task: Task }) {
         ev.dataTransfer.setData("text/plain", props.task.id);
     }
 
-    return <div className={styles.taskCard} onClick={() => handleClick()} draggable onDragStart={handleDragStart} role="button">
+    return <div className={styles.taskCard} onClick={() => handleClick()} draggable onDragStart={handleDragStart} role="button" data-index={props.index}>
         <VerticalContentLayout>
             <strong>{props.task.name}</strong>
             <p>{props.task.description}</p>
@@ -50,7 +50,7 @@ export default function Lane(props: LaneProps) {
     return <div className={styles.laneContainer} onDrop={handleDrop} onDragOver={e => e.preventDefault()}>
         <h2>{props.name}</h2>
         <div className={styles.lane}>
-            {props.tasks.map(task => <TaskCard key={task.id} task={task}/>)}
+            {props.tasks.map((task , i)=> <TaskCard key={task.id} index={i} task={task}/>)}
         </div>
     </div>
 }

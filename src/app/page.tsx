@@ -12,7 +12,7 @@ export default async function ProjectSPage() {
 
     return <HeaderContentLayout title="Projects" actionButtons={<CreateProjectButton />}>
         <GridLayout>
-            {projects.map(project => <ProjectCard key={project.id} project={project}/>)}
+            {projects.map((project,i) => <ProjectCard key={project.id} project={project} index={i}/>)}
         </GridLayout>
     </HeaderContentLayout>
 }

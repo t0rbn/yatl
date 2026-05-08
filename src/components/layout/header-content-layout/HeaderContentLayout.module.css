@@ -18,6 +18,27 @@
         h1 {
             flex-grow: 1;
         }
+
+        > *:not(h1) {
+            transition: all ease-out var(--animation-duration);
+            @starting-style {
+                opacity: 0;
+                transform: translateX(var(--size-m));
+            }
+
+            &:nth-child(3) {
+                transition-delay: calc(.5 *var(--animation-duration));
+            }
+
+            &:nth-child(4) {
+                transition-delay: calc(1 *var(--animation-duration));
+            }
+
+            &:nth-child(5) {
+                transition-delay: calc(1.5 *var(--animation-duration));
+            }
+
+        }
     }
 
     main {

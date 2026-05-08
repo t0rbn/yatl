@@ -15,7 +15,6 @@
     border-radius: calc(var(--size-s) * 2 + vaR(--size-m));
     cursor: pointer;
 
-
     @media (hover: hover) {
         &:hover {
             background-image: var(--gradient-hover);

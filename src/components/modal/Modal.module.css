@@ -11,11 +11,15 @@
     justify-content: center;
     backdrop-filter: vaR(--blur-glass);
 
+    transition: all ease-out var(--animation-duration);
+    @starting-style {
+        opacity: 0;
+    }
+
     .window {
         width: 30rem;
         max-width: 90svw;
 
-        background-color: var(--color-surface-elevated);
         background-image: var(--gradient-glass);
         border: var(--border-glass);
 
@@ -30,6 +34,12 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: var(--size-m)
+        }
+
+        transition: all ease-out var(--animation-duration);
+        @starting-style {
+            opacity: 0;
+            transform: scale(.75);
         }
     }
 }
