@@ -14,7 +14,7 @@ export async function createOrEditProject(formData: FormData): Promise<string> {
     const prisma = getPrismaClient();
     if (!id) {
         const created = await prisma.project.create({data: {name}});
-        revalidatePath('/projects');
+        revalidatePath('/');
         return created.id;
     }
 
@@ -45,5 +45,5 @@ export async function deleteProject(id: string): Promise<void> {
         prisma.project.delete({where: {id}}),
     ]);
 
-    revalidatePath('/projects');
+    revalidatePath('/');
 }
