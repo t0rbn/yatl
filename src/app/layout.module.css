@@ -50,6 +50,11 @@ html.root {
         padding: 0;
         color: var(--color-text-base);
         background-image: var(--gradient-background);
+        background-attachment: fixed;
+
+        /*background-image: url("/planet-volumes-DkJAfgh-lFU-unsplash.jpg");*/
+        /*background-position: center center;*/
+        /*background-size: cover;*/
 
         height: 100%;
         font-family: 'Inter', sans-serif;

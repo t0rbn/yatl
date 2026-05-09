@@ -38,8 +38,8 @@ export function ModalProvider({children}: PropsWithChildren) {
         <ModalContext.Provider value={{show, close, closeAll}}>
             {children}
             {currentModal && (
-                <div className={styles.backDrop}>
-                    <div role="dialog" aria-modal="true" aria-label={currentModal.title} className={styles.window}>
+                <div className={styles.backDrop} key="modal-backdrop">
+                    <div role="dialog" aria-modal="true" aria-label={currentModal.title} className={styles.window} key="modal">
                         <header>
                             <h2>{currentModal.title}</h2>
                             {currentModal.closeable !== false && (<Button icon="close" variant="text" color="danger"  onClick={close}/>)}

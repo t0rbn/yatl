@@ -17,4 +17,17 @@
             transform: scale(.9)
         }
     }
+
+    @media (max-width: 60rem) {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+
+        > *:nth-child(n) {
+            grid-row: unset;
+        }
+        overflow: auto;
+        max-height: 100%;
+
+
+    }
 }
