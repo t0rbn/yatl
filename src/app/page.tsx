@@ -15,9 +15,9 @@ export default async function ProjectSPage() {
         orderBy: {createdAt: 'asc'}
     })
 
-    return <HeaderContentLayout title="Projects" actionButtons={<CreateProjectButton />}>
+    return <HeaderContentLayout title="Projects" actionButtons={<CreateProjectButton/>}>
         <GridLayout>
-            {projects.map((project,i) => <ProjectCard key={project.id} project={project} index={i}/>)}
+            {projects.map((project) => <ProjectCard key={project.id} project={project}/>)}
         </GridLayout>
     </HeaderContentLayout>
 }
