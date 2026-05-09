@@ -11,5 +11,5 @@ interface AddTaskButtonProps {
 export function AddTaskButton(props: AddTaskButtonProps) {
     const modal = useModal();
 
-    return <Button  color="primary" label="New task"  onClick={() => modal.show({title: 'Add Task', content: <EditTaskModal/>})} />
+    return <Button icon="add_task" color="primary" label="New task"  onClick={() => modal.show({title: 'Add Task', content: <EditTaskModal/>})} />
 }

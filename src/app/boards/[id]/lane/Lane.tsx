@@ -32,7 +32,7 @@ function TaskCard(props: { task: Task , index: number}) {
     return <div className={styles.taskCard} onClick={() => handleClick()} draggable onDragStart={handleDragStart} role="button" data-index={props.index}>
         <VerticalContentLayout>
             <strong>{props.task.name}</strong>
-            <p>{props.task.description}</p>
+            {props.task.description ? <p>{props.task.description}</p> : null}
         </VerticalContentLayout>
     </div>
 }

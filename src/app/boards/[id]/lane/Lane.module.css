@@ -43,14 +43,6 @@
                 border-bottom-left-radius: var(--size-m);
                 border-bottom-right-radius: var(--size-m);
             }
-
-            transition: all ease-out var(--animation-duration);
-            transition-delay: calc(attr(data-index number) * .5 * var(--animation-duration));
-            /*transition-delay: var(--animation-duration);*/
-            @starting-style {
-                transform: translateY(var(--size-m));
-                opacity: 0;
-            }
         }
     }
 }

@@ -3,9 +3,9 @@ import {Project} from "@/types/project";
 import Link from "next/link";
 import styles from "./ProjectCard.module.css";
 
-export function ProjectCard(props: PropsWithChildren<{ project: Project, index: number }>) {
+export function ProjectCard(props: PropsWithChildren<{ project: Project }>) {
     return <Link href={`/boards/${props.project.id}`}>
-        <div className={styles.projectCard} data-index={props.index}>
+        <div className={styles.projectCard}>
             <h2>{props.project.name}</h2>
         </div>
     </Link>

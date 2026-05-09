@@ -9,5 +9,5 @@ export function CreateProjectButton() {
     const modal = useModal()
 
     const openModal = () => modal.show({title: 'New Project', content: <EditProjectModal/>})
-    return <Button label="New Project" color="primary" onClick={() => openModal()} />
+    return <Button icon="list_alt_add" label="New Project" color="primary" onClick={() => openModal()} />
 }

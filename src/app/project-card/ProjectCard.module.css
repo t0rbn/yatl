@@ -1,9 +1,16 @@
 .projectCard {
     color: var(--color-text-base);
-    text-decoration: none;
-    padding: var(--size-xxl) var(--size-m);
+    padding:  var(--size-m);
+    /*min-height: var(--size-xxl);*/
+    aspect-ratio: 1.5;
     border-radius: var(--size-m);
 
+    h2 {
+        color: hotpink !important;
+        text-decoration: none !important;
+        text-decoration-color: aquamarine !important;
+        appearance: none;
+    }
 
     background-color: var(--color-surface-interactive);
     background-image: vaR(--gradient-glass);
@@ -16,9 +23,8 @@
     }
 
     transition: all ease-out var(--animation-duration);
-    transition-delay: calc(attr(data-index number) * .5 * var(--animation-duration));
-    /*transition-delay: var(--animation-duration);*/
     @starting-style {
         opacity: 0;
+        transform: scale(.9);
     }
 }

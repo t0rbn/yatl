@@ -39,7 +39,7 @@
         transition: all ease-out var(--animation-duration);
         @starting-style {
             opacity: 0;
-            transform: scale(.75);
+            transform: scale(.9);
         }
     }
 }

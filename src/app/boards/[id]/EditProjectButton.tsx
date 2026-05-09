@@ -12,7 +12,7 @@ interface EditProjectButtonProps {
 export function EditProjectButton(props: EditProjectButtonProps) {
     const modal = useModal();
 
-    return <Button icon="edit" onClick={() => modal.show({title: 'Edit Project', content: <EditProjectModal project={props.project}/>})}/>
+    return <Button icon="settings" onClick={() => modal.show({title: 'Edit Project', content: <EditProjectModal project={props.project}/>})}/>
 
 
 }
