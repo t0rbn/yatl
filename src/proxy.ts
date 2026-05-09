@@ -12,7 +12,7 @@ export function proxy(request: NextRequest) {
             const separatorIndex = decoded.indexOf(':')
             if (separatorIndex !== -1) {
                 const password = decoded.slice(separatorIndex + 1)
-                if (password === 'password') {
+                if (password === process.env.BASIC_AUTH_PASSWORD) {
                     return NextResponse.next()
                 }
             }
