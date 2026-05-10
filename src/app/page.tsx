@@ -1,3 +1,4 @@
+import {Suspense} from "react";
 import type {Metadata} from "next";
 import {prisma} from "@/utils/prisma-connection";
 import {GridLayout} from "@/components/layout/grid/GridLayout";

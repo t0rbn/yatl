@@ -48,7 +48,7 @@ export async function createOrEditTask(formData: FormData): Promise<void> {
         data.statusUpdatedAt = new Date();
     }
     await prisma.task.update({where: {id}, data});
-    revalidatePath(`/boards/${existing.projectId}`);
+    revalidatePath(`/boards/${projectId}`);
 }
 
 
@@ -58,7 +58,7 @@ export async function deleteTask(taskId: string): Promise<void> {
     }
 
     const existing = await prisma.task.findUnique({where: {id: taskId}});
-    if (!existing || !existing.projectId) {
+    if (!existing) {
         throw new Error(`Task with id ${taskId} does not exist`);
     }
 

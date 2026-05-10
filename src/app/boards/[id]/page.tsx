@@ -1,3 +1,4 @@
+import {Suspense} from "react";
 import type {Metadata} from "next";
 import {cache} from "react";
 import {prisma} from "@/utils/prisma-connection";
