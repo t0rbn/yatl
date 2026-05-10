@@ -1,6 +1,6 @@
 "use client";
 
-import React, {createContext, PropsWithChildren, useCallback, useContext, useState} from "react";
+import React, {createContext, PropsWithChildren, useCallback, useContext, useMemo, useState} from "react";
 import styles from "./Modal.module.css";
 import {Button} from "@/components/buttons/Buttons";
 
@@ -22,28 +22,31 @@ export function ModalProvider({children}: PropsWithChildren) {
     const [modals, setModals] = useState<Array<ModalProps>>([]);
     const currentModal = modals.length ? modals[modals.length - 1] : null;
 
-    // TODO @to-done: is useCallBack needed here? the function always changes the value in the dependency array
     const show = useCallback((next: ModalProps) => {
         setModals(prev => [...prev, next]);
-    }, [modals]);
+    }, []);
 
     const close = useCallback(() => {
         setModals((m) => m.slice(0, -1));
-    }, [modals]);
+    }, []);
 
     const closeAll = useCallback(() => {
         setModals([]);
-    }, [modals]);
+    }, []);
+
+    const value = useMemo(() => ({show, close, closeAll}), [show, close, closeAll]);
 
     return (
-        <ModalContext.Provider value={{show, close, closeAll}}>
+        <ModalContext.Provider value={value}>
             {children}
             {currentModal && (
                 <div className={styles.backDrop} key="modal-backdrop">
-                    <div role="dialog" aria-modal="true" aria-label={currentModal.title} className={styles.window} key="modal">
+                    <div role="dialog" aria-modal="true" aria-label={currentModal.title} className={styles.window}
+                         key="modal">
                         <header>
                             <h2>{currentModal.title}</h2>
-                            {currentModal.closeable !== false && (<Button icon="close" variant="text" color="danger"  onClick={close}/>)}
+                            {currentModal.closeable !== false && (
+                                <Button icon="close" variant="text" color="danger" onClick={close}/>)}
                         </header>
                         <div>{currentModal.content}</div>
                     </div>

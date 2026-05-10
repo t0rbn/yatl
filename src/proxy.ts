@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function proxy(request: NextRequest) {
-    // DONE [by to-done]: add a next.js proxy function that implements basic auth check; accept any and passwort = "password"
-    // Implemented: parses `Authorization: Basic ...`, decodes via `atob`, splits on the first `:` (so passwords with colons survive), accepts any username when password === "password". Missing/invalid/malformed → 401 + `WWW-Authenticate: Basic realm="Secure Area"`. `config.matcher` excludes `_next/static`, `_next/image`, and favicon.
     const authHeader = request.headers.get('authorization')
 
     if (authHeader?.startsWith('Basic ')) {

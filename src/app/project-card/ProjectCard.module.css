@@ -1,5 +1,5 @@
 .projectCard {
-    aspect-ratio: 1.5;
+    aspect-ratio: 2;
     text-decoration: none;
 
     color: var(--color-text-base);
@@ -18,7 +18,7 @@
 
     div {
         background-color: var(--color-surface-interactive);
-        padding:  var(--size-m);
+        padding: var(--size-m);
         height: 100%;
         border-radius: calc(var(--size-m) + var(--size-s));
 
@@ -27,19 +27,18 @@
         align-items: center;
         justify-content: center;
 
-        h2 {
+        strong {
             text-align: center;
         }
 
         transition: all ease-out var(--animation-duration-interaction);
-        @media (hover:hover ) {
+        @media (hover: hover ) {
             &:hover {
                 background-color: var(--color-surface-interactive-hover);
             }
         }
 
     }
-
 
 
 }
