@@ -1,3 +1,4 @@
+import {cache} from "react";
 import type {Metadata} from "next";
 import {prisma} from "@/utils/prisma-connection";
 import Lane from "./lane/Lane";
@@ -7,12 +8,19 @@ import {HeaderContentLayout} from "@/components/layout/header-content-layout/Hea
 import {AddTaskButton} from "./AddTaskButton";
 import {BackToProjectsButton} from "./BackToProjectsButton";
 import {Project, TaskStatus} from "../../../../prisma/generated/prisma/client";
-import {EditProjectButton} from "@/app/boards/[id]/EditProjectButton";
+import {EditProjectButton} from "./EditProjectButton";
+
+export const dynamic = "force-dynamic";
+
+const getProject = cache((id: string) =>
+    prisma.project.findUnique({where: {id}})
+);
 
 export async function generateMetadata({params}: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const {id} = await params;
 
-    const project = await prisma.project.findUnique({where: {id}})
+
+    const project = await getProject(id);
     if (!project) {
         return {title: "Project not found | YATL"};
     }
@@ -22,7 +30,7 @@ export async function generateMetadata({params}: { params: Promise<{ id: string 
 export default async function ProjectsPage({params}: { params: Promise<{ id: string }> }) {
     const projectId = (await params).id;
 
-    const project: Project | null = await prisma.project.findUnique({where: {id: projectId}})
+    const project: Project | null = await getProject(projectId);
     if (!project) {
         return notFound();
     }
@@ -48,6 +56,6 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
             <Lane status="ARCHIVED" name="Archived" tasks={tasksByStatus('ARCHIVED')}/>
         </div>
     </HeaderContentLayout>
-}
 
-export const dynamic = "force-dynamic"
+
+}

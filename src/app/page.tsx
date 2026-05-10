@@ -6,6 +6,8 @@ import {HeaderContentLayout} from "@/components/layout/header-content-layout/Hea
 import {CreateProjectButton} from "./CreateProjectButton";
 import {Project} from "../../prisma/generated/prisma/client";
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
     title: "Projects | YATL",
 };
@@ -22,4 +24,3 @@ export default async function ProjectsPage() {
     </HeaderContentLayout>
 }
 
-export const dynamic = "force-dynamic"
