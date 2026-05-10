@@ -16,27 +16,30 @@ export function EditProjectModal(props: EditProjectModalProps) {
     const router = useRouter();
     const modal = useModal();
 
-    const handleAddOrUpdate = (data: FormData) => {
-        createOrEditProject(data)
-            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
-            .then((id) => {
-                if (!props.project) {
-                    router.push(`/boards/${id}`)
-                }
-            })
-            .then(() => modal.close())
-
+    const handleAddOrUpdate = async (data: FormData) => {
+        try {
+            const id = await createOrEditProject(data)
+            if (!props.project) {
+                router.push(`/boards/${id}`)
+            }
+            modal.close()
+        } catch (e) {
+            modal.show({title: "Error", content: <p>{(e as Error).message}</p>})
+        }
     }
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (!props.project) {
             return
         }
 
-        deleteProject(props.project.id)
-            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
-            .then(() => router.push('/'))
-            .then(() => modal.closeAll())
+        try {
+            await deleteProject(props.project.id)
+            router.push('/')
+            modal.closeAll()
+        } catch (e) {
+            modal.show({title: "Error", content: <p>{(e as Error).message}</p>})
+        }
     }
 
     const handleDeleteButtonClicked = () => {

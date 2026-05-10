@@ -17,19 +17,25 @@ export function EditTaskModal(props: EditTaskModalProps) {
     const modal = useModal();
     const params = useParams();
 
-    const handleAddOrUpdate = (data: FormData) => {
-        createOrEditTask(data)
-            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
-            .then(() => modal.close())
+    const handleAddOrUpdate = async (data: FormData) => {
+        try {
+            await createOrEditTask(data)
+            modal.close()
+        } catch (e) {
+            modal.show({title: "Error", content: <p>{(e as Error).message}</p>})
+        }
     }
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (!props.task?.id) {
             return
         }
-        deleteTask(props.task.id)
-            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
-            .then(() => modal.closeAll())
+        try {
+            await deleteTask(props.task.id)
+            modal.closeAll()
+        } catch (e) {
+            modal.show({title: "Error", content: <p>{(e as Error).message}</p>})
+        }
     }
 
     const handleDeleteButtonClicked = () => {

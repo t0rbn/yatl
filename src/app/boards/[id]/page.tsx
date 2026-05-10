@@ -10,6 +10,8 @@ import {AddTaskButton} from "./AddTaskButton";
 import {BackToProjectsButton} from "./BackToProjectsButton";
 import {Project, Task, TaskStatus} from "../../../../prisma/generated/prisma/client";
 
+export const dynamic = 'force-dynamic';
+
 const getProject = cache((id: string) =>
     prisma.project.findUnique({where: {id}})
 );
