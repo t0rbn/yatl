@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YATL: Yet Another To-Do List
 
-## Getting Started
+→ https://yatl-production.up.railway.app/
 
-First, run the development server:
+![YATL screenshot](./screenshot.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The world didn't need another To-Do list app. But I needed a project to play around with
+* [Prisma](https://www.prisma.io/) + [SQLite](https://www.sqlite.org/)
+* [railway](https://railway.com/)
+* glossy transparent UI design
+* agentic workflows
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+# Setup
+## Requirements + Dependencies
+* install node.js >= 25
+* install dependencies with `yarn install`
 
-To learn more about Next.js, take a look at the following resources:
+## Local Setup Dev-Server
+run 
+* `yarn db:migrate` to update your local db schema
+* `yarn db:generate` to generate the prisma client
+* `yarn dev` to start the dev server on `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Production Build
+run
+* `db:migrate:deploy` to apply migrations in production config
+* `yarn db:generate` to generate the prisma client
+* `yarn build` to create the production build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Deploy
+[railway](https://railway.com/) is connected to this repo. It uses the scripts `./build.sh` and `./start.sh` for building, database migrations and startup

@@ -26,7 +26,7 @@ html.root {
     --shadow-default: 0 0 var(--size-m) hsl(0 0% 0% / .1);
     --blur-glass: blur(var(--size-l));
 
-    --animation-duration: .25s;
-    --animation-duration-interaction: .125s;
+    --animation-duration: .2s;
+    --animation-duration-interaction: .1s;
 }
 

@@ -1,6 +1,12 @@
 .gridLayout {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(12 * var(--size-m)), 1fr));
+    grid-template-columns: repeat(4, 1fr);
+
     grid-template-rows: auto;
     grid-gap: var(--size-m);
+
+    @media (max-width: 60rem) {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
+
