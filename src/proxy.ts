@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+// DONE [by to-done]: /manifest.json from this authentication proxy
+// Added `manifest.json` and `icons/` to the negative-lookahead in config.matcher so the PWA manifest and its referenced icons bypass Basic Auth.
+
 export function proxy(request: NextRequest) {
     const authHeader = request.headers.get('authorization')
 
@@ -26,5 +29,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+    matcher: ['/((?!_next/static|_next/image|favicon.ico|manifest.json|icons/).*)'],
 }
