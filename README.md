@@ -1,17 +1,13 @@
 # YATL: Yet Another To-Do List
 
 → https://yatl-production.up.railway.app/
-
 ![YATL screenshot](./screenshot.png)
-
-
 
 The world didn't need another To-Do list app. But I needed a project to play around with
 * [Prisma](https://www.prisma.io/) + [SQLite](https://www.sqlite.org/)
 * [railway](https://railway.com/)
 * glossy transparent UI design
 * agentic workflows
-
 
 # Setup
 ## Requirements + Dependencies
@@ -26,7 +22,7 @@ run
 
 ## Production Build
 run
-* `db:migrate:deploy` to apply migrations in production config
+* `yarn db:migrate:deploy` to apply migrations in production config
 * `yarn db:generate` to generate the prisma client
 * `yarn build` to create the production build
 

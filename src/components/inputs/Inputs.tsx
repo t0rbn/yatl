@@ -31,7 +31,7 @@ export function SelectInput(props: InputProps<string> & { options: Array<{ name:
     return <label className={styles.label}>
         <span>{props.label}</span>
         <select defaultValue={props.defaultValue} required={props.required} name={props.name}>
-            {props.options.map(option => <option key={option.name} value={option.value}>{option.name}</option>)}
+            {props.options.map(option => <option key={option.value} value={option.value}>{option.name}</option>)}
         </select>
     </label>
 }

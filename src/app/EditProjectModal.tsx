@@ -53,7 +53,7 @@ export function EditProjectModal(props: EditProjectModalProps) {
     return <form action={handleAddOrUpdate}>
         <VerticalContentLayout>
             <HiddenInput name="id" value={props.project?.id}/>
-            <TextInput label="Name" name="name" defaultValue={props.project?.name}/>
+            <TextInput label="Name" name="name" defaultValue={props.project?.name} required/>
             <ButtonGroup
                 left={<Button variant="text" color="danger" label="Delete" type="button"
                               onClick={() => handleDeleteButtonClicked()}/>}

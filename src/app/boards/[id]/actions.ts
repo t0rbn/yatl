@@ -1,11 +1,9 @@
 "use server"
-import {getPrismaClient} from "@/utils/prisma-connection";
+import {prisma} from "@/utils/prisma-connection";
 import {Prisma, TaskStatus} from "../../../../prisma/generated/prisma/client";
 import {revalidatePath} from "next/cache";
 
 export async function createOrEditTask(formData: FormData): Promise<void> {
-    const prisma = getPrismaClient();
-
     const id = formData.get('id') as string | null;
     const projectId = formData.get('projectId') as string;
     const name = formData.get('name') as string;
@@ -20,9 +18,14 @@ export async function createOrEditTask(formData: FormData): Promise<void> {
         throw new Error('Missing required field: name');
     }
 
-
     if (!id) {
+        const project = await prisma.project.findFirst({where: {id: projectId}})
+        if (!project) {
+            throw new Error(`Project with id ${projectId} does not exist`);
+        }
+
         await prisma.task.create({data: {projectId, name, description, status}});
+        revalidatePath(`/boards/${projectId}`);
         return;
     }
 
@@ -45,16 +48,21 @@ export async function deleteTask(taskId: string): Promise<void> {
         throw new Error('Missing required fields');
     }
 
-    const task = await getPrismaClient().task.delete({where: {id: taskId}});
-    revalidatePath(`/boards/${task.projectId}`);
+    const existing = await prisma.task.findUnique({where: {id: taskId}});
+    if (!existing || !existing.projectId) {
+        throw new Error(`Task with id ${taskId} does not exist`);
+    }
+
+    await prisma.task.delete({where: {id: taskId}});
+    if (existing.projectId) {
+        revalidatePath(`/boards/${existing.projectId}`);
+    }
 }
 
 export async function updateStatus(taskId: string, status: TaskStatus): Promise<void> {
     if (!taskId) {
         throw new Error('Missing required fields');
     }
-
-    const prisma = getPrismaClient();
 
     const existing = await prisma.task.findUnique({where: {id: taskId}});
     if (!existing) {

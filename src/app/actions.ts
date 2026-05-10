@@ -1,6 +1,6 @@
 "use server"
 
-import {getPrismaClient} from "@/utils/prisma-connection";
+import {prisma} from "@/utils/prisma-connection";
 import {revalidatePath} from "next/cache";
 
 export async function createOrEditProject(formData: FormData): Promise<string> {
@@ -11,7 +11,6 @@ export async function createOrEditProject(formData: FormData): Promise<string> {
         throw new Error('name required')
     }
 
-    const prisma = getPrismaClient();
     if (!id) {
         const created = await prisma.project.create({data: {name}});
         revalidatePath('/');
@@ -24,6 +23,7 @@ export async function createOrEditProject(formData: FormData): Promise<string> {
     }
 
     const updated = await prisma.project.update({where: {id}, data: {name}});
+    revalidatePath('/');
     return updated.id
 }
 
@@ -32,8 +32,6 @@ export async function deleteProject(id: string): Promise<void> {
     if (!id) {
         throw new Error('Missing required fields');
     }
-
-    const prisma = getPrismaClient();
 
     const project = await prisma.project.findUnique({where: {id}});
     if (!project) {

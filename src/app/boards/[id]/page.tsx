@@ -1,6 +1,6 @@
 import type {Metadata} from "next";
 import {cache} from "react";
-import {getPrismaClient} from "@/utils/prisma-connection";
+import {prisma} from "@/utils/prisma-connection";
 import {Task, TaskStatus} from "@/types/task";
 import Lane from "./lane/Lane";
 import styles from "@/app/boards/[id]/page.module.css";
@@ -9,10 +9,10 @@ import {HeaderContentLayout} from "../../../components/layout/header-content-lay
 import {EditProjectButton} from "./EditProjectButton";
 import {AddTaskButton} from "./AddTaskButton";
 import {Project} from "@/types/project";
-import {BackToProjectsButton} from "@/app/boards/[id]/BackToProjectsButtons";
+import {BackToProjectsButton} from "./BackToProjectsButton";
 
 const getProject = cache((id: string) =>
-    getPrismaClient().project.findUnique({where: {id}})
+    prisma.project.findUnique({where: {id}})
 );
 
 export async function generateMetadata({params}: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -32,7 +32,7 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
         return notFound();
     }
 
-    const tasks: Array<Task> = await getPrismaClient().task.findMany({
+    const tasks: Array<Task> = await prisma.task.findMany({
         where: {projectId},
         orderBy: {statusUpdatedAt: 'asc'}
     });
@@ -44,7 +44,7 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
         actionButtons={[
             <AddTaskButton projectId={projectId}/>,
             <BackToProjectsButton/>,
-            <EditProjectButton project={project ?? undefined}/>
+            <EditProjectButton project={project}/>
         ]}>
         <div className={styles.board}>
             <Lane status="TODO" name="To Do" tasks={tasksByStatus('TODO')}/>
