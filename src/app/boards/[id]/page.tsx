@@ -1,25 +1,18 @@
-import {Suspense} from "react";
 import type {Metadata} from "next";
-import {cache} from "react";
 import {prisma} from "@/utils/prisma-connection";
 import Lane from "./lane/Lane";
 import styles from "@/app/boards/[id]/page.module.css";
 import {notFound} from "next/navigation";
 import {HeaderContentLayout} from "@/components/layout/header-content-layout/HeaderContentLayout";
-import {EditProjectButton} from "./EditProjectButton";
 import {AddTaskButton} from "./AddTaskButton";
 import {BackToProjectsButton} from "./BackToProjectsButton";
-import {Project, Task, TaskStatus} from "../../../../prisma/generated/prisma/client";
-
-export const dynamic = 'force-dynamic';
-
-const getProject = cache((id: string) =>
-    prisma.project.findUnique({where: {id}})
-);
+import {Project, TaskStatus} from "../../../../prisma/generated/prisma/client";
+import {EditProjectButton} from "@/app/boards/[id]/EditProjectButton";
 
 export async function generateMetadata({params}: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const {id} = await params;
-    const project = await getProject(id);
+
+    const project = await prisma.project.findUnique({where: {id}})
     if (!project) {
         return {title: "Project not found | YATL"};
     }
@@ -29,15 +22,15 @@ export async function generateMetadata({params}: { params: Promise<{ id: string 
 export default async function ProjectsPage({params}: { params: Promise<{ id: string }> }) {
     const projectId = (await params).id;
 
-    const project: Project | null = await getProject(projectId);
+    const project: Project | null = await prisma.project.findUnique({where: {id: projectId}})
     if (!project) {
         return notFound();
     }
 
-    const tasks: Array<Task> = await prisma.task.findMany({
+    const tasks = await prisma.task.findMany({
         where: {projectId},
         orderBy: {statusUpdatedAt: 'asc'}
-    });
+    })
     const tasksByStatus = (status: TaskStatus) => tasks.filter(t => t.status === status)
 
 
@@ -55,6 +48,6 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
             <Lane status="ARCHIVED" name="Archived" tasks={tasksByStatus('ARCHIVED')}/>
         </div>
     </HeaderContentLayout>
-
-
 }
+
+export const dynamic = "force-dynamic"
