@@ -1,12 +1,12 @@
 "use client";
 
-import {Project} from "@/types/project";
 import {VerticalContentLayout} from "@/components/layout/vertical-content/VerticalContentLayout";
 import {createOrEditProject, deleteProject} from "@/app/actions";
 import {useRouter} from "next/navigation";
 import {useModal} from "@/components/modal/modalContext";
 import {HiddenInput, TextInput} from "@/components/inputs/Inputs";
 import {Button, ButtonGroup} from "@/components/buttons/Buttons";
+import {Project} from "../../prisma/generated/prisma/client";
 
 interface EditProjectModalProps {
     project?: Project
@@ -18,14 +18,14 @@ export function EditProjectModal(props: EditProjectModalProps) {
 
     const handleAddOrUpdate = (data: FormData) => {
         createOrEditProject(data)
+            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
             .then((id) => {
-                if (props.project) {
-                    router.refresh()
-                } else {
+                if (!props.project) {
                     router.push(`/boards/${id}`)
                 }
             })
             .then(() => modal.close())
+
     }
 
     const handleDelete = () => {
@@ -34,6 +34,7 @@ export function EditProjectModal(props: EditProjectModalProps) {
         }
 
         deleteProject(props.project.id)
+            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
             .then(() => router.push('/'))
             .then(() => modal.closeAll())
     }

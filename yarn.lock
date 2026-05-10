@@ -3050,7 +3050,7 @@ pg-types@2.2.0, pg-types@^2.2.0:
 pg@^8.16.3, pg@latest:
   version "8.20.0"
   resolved "https://registry.yarnpkg.com/pg/-/pg-8.20.0.tgz#1a274de944cb329fd6dd77a6d371a005ba6b136d"
-  integrity sha512-ldhMxz2r8fl/6QkXnBD3CR9/xg694oT6DZQ2s6c/RI28OjtSOpxnPrUCGOBJ46RCUxcWdx3p6kw/xnDHjKvaRA==
+  integrity sha512-ldhMxz2r8fl/6QkXnBD3CR9/xg694oT6DZQ2s6c/RI28OjtSOpxnPrUCGOBJ46RCUxcWdx3p6kw/xnDHjKvarA==
   dependencies:
     pg-connection-string "^2.12.0"
     pg-pool "^3.13.0"

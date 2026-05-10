@@ -11,7 +11,7 @@ The world didn't need another To-Do list app. But I needed a project to play aro
 
 # Setup
 ## Requirements + Dependencies
-* install node.js >= 25
+* install node.js
 * install dependencies with `yarn install`
 
 ## Local Setup Dev-Server

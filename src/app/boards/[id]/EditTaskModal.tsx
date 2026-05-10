@@ -1,12 +1,12 @@
 "use client";
 
-import {Task} from "@/types/task";
 import {VerticalContentLayout} from "@/components/layout/vertical-content/VerticalContentLayout";
 import {createOrEditTask, deleteTask} from "@/app/boards/[id]/actions";
 import {useParams, useRouter} from "next/navigation";
 import {useModal} from "@/components/modal/modalContext";
 import {HiddenInput, SelectInput, TextArea, TextInput} from "@/components/inputs/Inputs";
 import {Button, ButtonGroup} from "@/components/buttons/Buttons";
+import {Task} from "../../../../prisma/generated/prisma/client";
 
 interface EditTaskModalProps {
     task?: Task
@@ -19,7 +19,7 @@ export function EditTaskModal(props: EditTaskModalProps) {
 
     const handleAddOrUpdate = (data: FormData) => {
         createOrEditTask(data)
-            .then(() => router.refresh())
+            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
             .then(() => modal.close())
     }
 
@@ -28,7 +28,7 @@ export function EditTaskModal(props: EditTaskModalProps) {
             return
         }
         deleteTask(props.task.id)
-            .then(() => router.refresh())
+            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
             .then(() => modal.closeAll())
     }
 

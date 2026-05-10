@@ -16,8 +16,8 @@
         border-radius: calc(var(--size-m) + var(--size-s));
         box-shadow: var(--shadow-default);
         border: var(--border-glass);
-        background-image: vaR(--gradient-glass);
-        backdrop-filter: vaR(--blur-glass);
+        background-image: var(--gradient-glass);
+        backdrop-filter: var(--blur-glass);
         transition: all ease-out var(--animation-duration-interaction);
 
         &.dragOver {

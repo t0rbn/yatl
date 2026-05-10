@@ -1,6 +1,5 @@
 "use client";
 
-import {Task, TaskStatus} from "@/types/task";
 import {VerticalContentLayout} from "@/components/layout/vertical-content/VerticalContentLayout";
 import styles from "./Lane.module.css"
 import {useModal} from "@/components/modal/modalContext";
@@ -9,6 +8,7 @@ import {useRouter} from "next/navigation";
 import {updateStatus} from "@/app/boards/[id]/actions";
 import {useState} from "react";
 import {classNames} from "@/utils/classnames";
+import {Task, TaskStatus} from "../../../../../prisma/generated/prisma/client";
 
 interface LaneProps {
     name: string;
@@ -34,6 +34,7 @@ function TaskCard(props: { task: Task, index: number }) {
         onDragStart={handleDragStart}
         onDragOver={e => e.preventDefault()}
         role="button" data-index={props.index}
+        tabIndex={0}
     >
         <VerticalContentLayout>
             <strong>{props.task.name}</strong>
@@ -43,13 +44,15 @@ function TaskCard(props: { task: Task, index: number }) {
 }
 
 export default function Lane(props: LaneProps) {
-    const router = useRouter();
     const [dragging, setDragging] = useState<boolean>(false)
+    const modal = useModal()
 
     const handleDrop = (ev: any) => {
         setDragging(() => false)
         const taskId = ev.dataTransfer.getData('text/plain')
-        updateStatus(taskId, props.status).then(() => router.refresh())
+        updateStatus(taskId, props.status)
+            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
+
 
     }
 

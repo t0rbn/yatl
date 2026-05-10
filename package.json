@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
     "db:migrate": "prisma migrate dev",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate",
@@ -25,8 +24,6 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "babel-plugin-react-compiler": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest",
     "prisma": "latest",
     "tsx": "latest",
     "typescript": "latest"

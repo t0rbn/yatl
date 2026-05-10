@@ -8,7 +8,7 @@
     padding: var(--size-s) var(--size-m);
     font-size: var(--size-m);
     line-height: 1;
-    border-radius: calc(var(--size-s) * 2 + vaR(--size-m));
+    border-radius: calc(var(--size-s) * 2 + var(--size-m));
 
     cursor: pointer;
 
@@ -54,7 +54,7 @@
         padding: 0;
 
         &:not(:has(.label)) .icon {
-            font-size: vaR(--size-l);
+            font-size: var(--size-l);
             height: unset;
             aspect-ratio: unset;
         }

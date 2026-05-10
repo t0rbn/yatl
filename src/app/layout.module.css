@@ -76,7 +76,7 @@ html.root {
 
         h1, h2, h3, h4, h5, h6, strong {
             margin: 0;
-            color: var(--color-text-hightlight)
+            color: var(--color-text-highlight)
         }
 
         h1 {

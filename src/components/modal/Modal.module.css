@@ -21,6 +21,7 @@
         width: 30rem;
         max-width: 90svw;
 
+        background-color: transparent;
         background-image: var(--gradient-glass);
         border: var(--border-glass);
 

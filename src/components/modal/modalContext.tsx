@@ -1,6 +1,15 @@
 "use client";
 
-import React, {createContext, PropsWithChildren, useCallback, useContext, useMemo, useState} from "react";
+import React, {
+    createContext,
+    PropsWithChildren,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+    useState
+} from "react";
 import styles from "./Modal.module.css";
 import {Button} from "@/components/buttons/Buttons";
 
@@ -21,6 +30,7 @@ const ModalContext = createContext<ModalContextValue | null>(null);
 export function ModalProvider({children}: PropsWithChildren) {
     const [modals, setModals] = useState<Array<ModalProps>>([]);
     const currentModal = modals.length ? modals[modals.length - 1] : null;
+    const windowRef = useRef<HTMLDivElement>(null);
 
     const show = useCallback((next: ModalProps) => {
         setModals(prev => [...prev, next]);
@@ -34,6 +44,30 @@ export function ModalProvider({children}: PropsWithChildren) {
         setModals([]);
     }, []);
 
+    useEffect(() => {
+        if (!currentModal) return;
+        const dialog = windowRef.current;
+        if (!dialog) return;
+
+        const previouslyFocused = document.activeElement as HTMLElement | null;
+        dialog.focus();
+
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && currentModal.closeable !== false) {
+                e.stopPropagation();
+                close();
+                return;
+            }
+
+        };
+
+        document.addEventListener('keydown', onKey);
+        return () => {
+            document.removeEventListener('keydown', onKey);
+            previouslyFocused?.focus();
+        };
+    }, [currentModal, close]);
+
     const value = useMemo(() => ({show, close, closeAll}), [show, close, closeAll]);
 
     return (
@@ -41,8 +75,8 @@ export function ModalProvider({children}: PropsWithChildren) {
             {children}
             {currentModal && (
                 <div className={styles.backDrop} key="modal-backdrop">
-                    <div role="dialog" aria-modal="true" aria-label={currentModal.title} className={styles.window}
-                         key="modal">
+                    <div ref={windowRef} role="dialog" aria-modal="true" aria-label={currentModal.title}
+                         tabIndex={-1} className={styles.window} key="modal">
                         <header>
                             <h2>{currentModal.title}</h2>
                             {currentModal.closeable !== false && (

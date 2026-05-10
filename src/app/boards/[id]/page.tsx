@@ -1,15 +1,14 @@
 import type {Metadata} from "next";
 import {cache} from "react";
 import {prisma} from "@/utils/prisma-connection";
-import {Task, TaskStatus} from "@/types/task";
 import Lane from "./lane/Lane";
 import styles from "@/app/boards/[id]/page.module.css";
 import {notFound} from "next/navigation";
-import {HeaderContentLayout} from "../../../components/layout/header-content-layout/HeaderContentLayout";
+import {HeaderContentLayout} from "@/components/layout/header-content-layout/HeaderContentLayout";
 import {EditProjectButton} from "./EditProjectButton";
 import {AddTaskButton} from "./AddTaskButton";
-import {Project} from "@/types/project";
 import {BackToProjectsButton} from "./BackToProjectsButton";
+import {Project, Task, TaskStatus} from "../../../../prisma/generated/prisma/client";
 
 const getProject = cache((id: string) =>
     prisma.project.findUnique({where: {id}})

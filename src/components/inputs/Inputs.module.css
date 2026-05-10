@@ -16,7 +16,7 @@ label.label {
 
     input, textarea, select {
         padding: var(--size-xs);
-        background-color: vaR(--color-surface-interactive);
+        background-color: var(--color-surface-interactive);
         outline: none;
         appearance: none;
         resize: none;
@@ -27,7 +27,7 @@ label.label {
 
         transition: background-color ease-out var(--animation-duration-interaction);
         &:focus, &:focus-within {
-            color: var(--color-text-hightlight);
+            color: var(--color-text-highlight);
             background-color: var(--color-surface-interactive-hover);
             outline: none;
         }

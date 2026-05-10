@@ -1,10 +1,10 @@
 import type {Metadata} from "next";
 import {prisma} from "@/utils/prisma-connection";
-import {Project} from "../types/project";
-import {GridLayout} from "../components/layout/grid/GridLayout";
+import {GridLayout} from "@/components/layout/grid/GridLayout";
 import {ProjectCard} from "./project-card/ProjectCard";
-import {HeaderContentLayout} from "../components/layout/header-content-layout/HeaderContentLayout";
+import {HeaderContentLayout} from "@/components/layout/header-content-layout/HeaderContentLayout";
 import {CreateProjectButton} from "./CreateProjectButton";
+import {Project} from "../../prisma/generated/prisma/client";
 
 export const metadata: Metadata = {
     title: "Projects | YATL",

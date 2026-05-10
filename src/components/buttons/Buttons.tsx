@@ -1,12 +1,13 @@
 import {classNames} from "@/utils/classnames";
 import styles from "./Buttons.module.css";
 import {Icon} from "@/components/icon/Icon";
+import {ButtonHTMLAttributes} from "react";
 
 interface ButtonProps {
     label?: string;
     icon?: string;
     onClick?: () => void;
-    type?: string;
+    type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 
     variant?: 'default' | 'text'
     color?: 'default' | 'danger'
@@ -20,7 +21,7 @@ export function Button(props: ButtonProps) {
         props.variant === 'text' ? styles.textVariant : null
     )
 
-    return <button onClick={props.onClick} className={classes} type={props.type as any}>
+    return <button onClick={props.onClick} className={classes} type={props.type ?? 'button'}>
         {props.icon ? <Icon className={styles.icon} icon={props.icon}/> : null}
         {props.label ? <span className={styles.label}>{props.label}</span> : null}
     </button>

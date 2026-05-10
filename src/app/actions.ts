@@ -38,10 +38,6 @@ export async function deleteProject(id: string): Promise<void> {
         throw new Error('Project not found');
     }
 
-    await prisma.$transaction([
-        prisma.task.deleteMany({where: {projectId: id}}),
-        prisma.project.delete({where: {id}}),
-    ]);
-
+    await prisma.project.delete({where: {id}})
     revalidatePath('/');
 }

@@ -18,7 +18,7 @@
         background-image: var(--gradient-glass);
         border-bottom: var(--border-glass);
         box-shadow: var(--shadow-default);
-        backdrop-filter: vaR(--blur-glass);
+        backdrop-filter: var(--blur-glass);
 
         h1 {
             flex-grow: 1;
@@ -40,7 +40,7 @@
             }
 
             &:nth-child(5) {
-                transition-delay: calc(7.5 * var(--animation-duration));
+                transition-delay: calc(.75 * var(--animation-duration));
             }
 
         }
@@ -49,7 +49,7 @@
     main {
         flex-grow: 1;
         padding: var(--size-m);
-        padding-top: vaR(--size-xl)
+        padding-top: var(--size-xl)
     }
 }
 

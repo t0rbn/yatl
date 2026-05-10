@@ -11,7 +11,7 @@ html.root {
 
 
     --color-text-base: hsl(0 0% 20% / .9);
-    --color-text-hightlight: hsl(0 0% 0% / .9);
+    --color-text-highlight: hsl(0 0% 0% / .9);
     --color-accent-danger: hsl(0 100% 50%);
 
     --size-xxs: .1rem;
