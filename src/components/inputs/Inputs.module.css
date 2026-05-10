@@ -25,9 +25,10 @@ label.label {
         color: inherit;
         border: none;
 
+        transition: background-color ease-out var(--animation-duration-interaction);
         &:focus, &:focus-within {
             color: var(--color-text-hightlight);
-            background-image: var(--gradient-hover);
+            background-color: var(--color-surface-interactive-hover);
             outline: none;
         }
     }

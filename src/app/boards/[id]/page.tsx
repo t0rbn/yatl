@@ -38,15 +38,14 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
     });
     const tasksByStatus = (status: TaskStatus) => tasks.filter(t => t.status === status)
 
-    function ActionButtons() {
-        return <>
-            <AddTaskButton projectId={projectId}/>
-            <BackToProjectsButton/>
-            <EditProjectButton project={project ?? undefined}/>
-        </>
-    }
 
-    return <HeaderContentLayout title={project.name} actionButtons={<ActionButtons/>}>
+    return <HeaderContentLayout
+        title={project.name}
+        actionButtons={[
+            <AddTaskButton projectId={projectId}/>,
+            <BackToProjectsButton/>,
+            <EditProjectButton project={project ?? undefined}/>
+        ]}>
         <div className={styles.board}>
             <Lane status="TODO" name="To Do" tasks={tasksByStatus('TODO')}/>
             <Lane status="IN_PROGRESS" name="In Progress" tasks={tasksByStatus('IN_PROGRESS')}/>

@@ -24,7 +24,7 @@
             flex-grow: 1;
         }
 
-        > *:not(h1) {
+        .buttonContainer {
             transition: all ease-out var(--animation-duration);
             @starting-style {
                 opacity: 0;
@@ -32,15 +32,15 @@
             }
 
             &:nth-child(3) {
-                transition-delay: calc(1 *var(--animation-duration));
+                transition-delay: calc(.25 * var(--animation-duration));
             }
 
             &:nth-child(4) {
-                transition-delay: calc(2 *var(--animation-duration));
+                transition-delay: calc(.5 * var(--animation-duration));
             }
 
             &:nth-child(5) {
-                transition-delay: calc(3 *var(--animation-duration));
+                transition-delay: calc(7.5 * var(--animation-duration));
             }
 
         }

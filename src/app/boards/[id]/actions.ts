@@ -36,7 +36,7 @@ export async function createOrEditTask(formData: FormData): Promise<void> {
         data.statusUpdatedAt = new Date();
     }
     await prisma.task.update({where: {id}, data});
-    revalidatePath(`/projects/${projectId}`);
+    revalidatePath(`/boards/${projectId}`);
 }
 
 
@@ -46,7 +46,7 @@ export async function deleteTask(taskId: string): Promise<void> {
     }
 
     const task = await getPrismaClient().task.delete({where: {id: taskId}});
-    revalidatePath(`/projects/${task.projectId}`);
+    revalidatePath(`/boards/${task.projectId}`);
 }
 
 export async function updateStatus(taskId: string, status: TaskStatus): Promise<void> {
@@ -69,5 +69,5 @@ export async function updateStatus(taskId: string, status: TaskStatus): Promise<
         where: {id: taskId},
         data: {status, statusUpdatedAt: new Date()}
     });
-    revalidatePath(`/projects/${task.projectId!}`);
+    revalidatePath(`/boards/${task.projectId!}`);
 }

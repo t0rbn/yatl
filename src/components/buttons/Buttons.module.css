@@ -5,13 +5,11 @@
     border: none;
     outline: none;
 
-    background-color: var(--button-color);
     padding: var(--size-s) var(--size-m);
     font-size: var(--size-m);
     line-height: 1;
-    color: var(--color-text-base);
-
     border-radius: calc(var(--size-s) * 2 + vaR(--size-m));
+
     cursor: pointer;
 
     display: flex;
@@ -20,9 +18,12 @@
     justify-content: center;
     gap: var(--size-xs);
 
+    background-color: var(--button-color);
+    color: var(--color-text-base);
+    transition: background-color ease-out var(--animation-duration-interaction);
     @media (hover: hover) {
         &:hover {
-            background-image: var(--gradient-hover);
+            background-color: var(--color-surface-interactive-hover);
         }
     }
 

@@ -22,17 +22,18 @@ export function ModalProvider({children}: PropsWithChildren) {
     const [modals, setModals] = useState<Array<ModalProps>>([]);
     const currentModal = modals.length ? modals[modals.length - 1] : null;
 
+    // TODO @to-done: is useCallBack needed here? the function always changes the value in the dependency array
     const show = useCallback((next: ModalProps) => {
         setModals(prev => [...prev, next]);
-    }, []);
+    }, [modals]);
 
     const close = useCallback(() => {
         setModals((m) => m.slice(0, -1));
-    }, []);
+    }, [modals]);
 
     const closeAll = useCallback(() => {
         setModals([]);
-    }, []);
+    }, [modals]);
 
     return (
         <ModalContext.Provider value={{show, close, closeAll}}>

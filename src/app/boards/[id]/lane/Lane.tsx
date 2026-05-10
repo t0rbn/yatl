@@ -7,6 +7,8 @@ import {useModal} from "@/components/modal/modalContext";
 import {EditTaskModal} from "../EditTaskModal";
 import {useRouter} from "next/navigation";
 import {updateStatus} from "@/app/boards/[id]/actions";
+import {useState} from "react";
+import {classNames} from "@/utils/classnames";
 
 interface LaneProps {
     name: string;
@@ -14,7 +16,7 @@ interface LaneProps {
     tasks: Task[];
 }
 
-function TaskCard(props: { task: Task , index: number}) {
+function TaskCard(props: { task: Task, index: number }) {
     const modal = useModal()
 
     const handleClick = () => {
@@ -22,14 +24,17 @@ function TaskCard(props: { task: Task , index: number}) {
     }
 
     const handleDragStart = (ev: any) => {
-        var img = new Image();
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
-        ev.dataTransfer.setDragImage(img, 0, 0);
-
         ev.dataTransfer.setData("text/plain", props.task.id);
     }
 
-    return <div className={styles.taskCard} onClick={() => handleClick()} draggable onDragStart={handleDragStart} role="button" data-index={props.index}>
+    return <div
+        className={styles.taskCard}
+        onClick={() => handleClick()}
+        draggable
+        onDragStart={handleDragStart}
+        onDragOver={e => e.preventDefault()}
+        role="button" data-index={props.index}
+    >
         <VerticalContentLayout>
             <strong>{props.task.name}</strong>
             {props.task.description ? <p>{props.task.description}</p> : null}
@@ -39,18 +44,25 @@ function TaskCard(props: { task: Task , index: number}) {
 
 export default function Lane(props: LaneProps) {
     const router = useRouter();
+    const [dragging, setDragging] = useState<boolean>(false)
 
     const handleDrop = (ev: any) => {
+        setDragging(() => false)
         const taskId = ev.dataTransfer.getData('text/plain')
-        updateStatus(taskId, props.status)
-            .then(() => router.refresh())
+        updateStatus(taskId, props.status).then(() => router.refresh())
 
     }
 
-    return <div className={styles.laneContainer} onDrop={handleDrop} onDragOver={e => e.preventDefault()}>
+    return <div className={styles.laneContainer}>
         <h2>{props.name}</h2>
-        <div className={styles.lane}>
-            {props.tasks.map((task , i)=> <TaskCard key={task.id} index={i} task={task}/>)}
+        <div
+            className={classNames(styles.lane, dragging ? styles.dragOver : null)}
+            onDrop={handleDrop}
+            onDragOver={e => e.preventDefault()}
+            onDragEnter={() => setDragging(true)}
+            onDragLeave={() => setDragging(false)}
+        >
+            {props.tasks.map((task, i) => <TaskCard key={task.id} index={i} task={task}/>)}
         </div>
     </div>
 }

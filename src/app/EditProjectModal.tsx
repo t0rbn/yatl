@@ -31,18 +31,19 @@ export function EditProjectModal(props: EditProjectModalProps) {
     const handleDelete = () => {
         if (!props.project) {
             return
-        };
+        }
+
         deleteProject(props.project.id)
             .then(() => router.push('/'))
             .then(() => modal.closeAll())
     }
 
-        const handleDeleteButtonClicked = () => {
+    const handleDeleteButtonClicked = () => {
         const modalContent = <VerticalContentLayout>
             <p>Are you sure to delete &quot;{props.project?.name}&quot;?</p>
             <ButtonGroup
-                left={<Button onClick={() => modal.close()} label="Cancel" />}
-                right={<Button color="danger" onClick={() => handleDelete()} label="Delete" /> }
+                left={<Button onClick={() => modal.close()} label="Cancel"/>}
+                right={<Button color="danger" onClick={() => handleDelete()} label="Delete"/>}
             />
         </VerticalContentLayout>
 
@@ -51,11 +52,12 @@ export function EditProjectModal(props: EditProjectModalProps) {
 
     return <form action={handleAddOrUpdate}>
         <VerticalContentLayout>
-            <HiddenInput name="id" value={props.project?.id} />
-            <TextInput label="Name" name="name" defaultValue={props.project?.name} />
+            <HiddenInput name="id" value={props.project?.id}/>
+            <TextInput label="Name" name="name" defaultValue={props.project?.name}/>
             <ButtonGroup
-                left={<Button variant="text" color="danger" label="Delete" onClick={() => handleDeleteButtonClicked()} /> }
-                right={<Button type="submit" label="Save" />}
+                left={<Button variant="text" color="danger" label="Delete" type="button"
+                              onClick={() => handleDeleteButtonClicked()}/>}
+                right={<Button type="submit" label="Save"/>}
             />
         </VerticalContentLayout>
     </form>

@@ -58,8 +58,8 @@ export function EditTaskModal(props: EditTaskModalProps) {
             ]} />
 
             <ButtonGroup
-                left={<>{props.task?.id ? <Button  variant="text" color="danger" onClick={handleDeleteButtonClicked} label="Delete" /> : null}</>}
-                right={<Button type="submit" label="Save" color="primary" />}
+                left={<>{props.task?.id ? <Button  variant="text" color="danger" type="button" onClick={handleDeleteButtonClicked} label="Delete" /> : null}</>}
+                right={<Button type="submit" label="Save" />}
             />
 
         </VerticalContentLayout>
