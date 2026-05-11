@@ -1,10 +1,10 @@
 html.root {
 
-    --color-bg-top: hsl(200 75% 75%);
-    --color-bg-left: hsl(40 75% 75%);
-    --color-bg-right: hsl(300 75% 75%);
+    --color-bg-top: hsl(200 100% 75%);
+    --color-bg-left: hsl(40 100% 75%);
+    --color-bg-right: hsl(300 100% 75%);
     --color-surface-interactive: hsl(0 0% 100% / .5);
-    --color-surface-interactive-hover: hsl(0 0% 100% / .9);
+    --color-surface-interactive-hover: hsl(0 0% 100% / .75);
 
     --gradient-glass: linear-gradient(to bottom, hsl(0 0% 100% / .25), hsl(0 0% 80% / .25));
     --gradient-background: linear-gradient(to bottom, var(--color-bg-top), transparent), linear-gradient(to right, var(--color-bg-left), var(--color-bg-right));

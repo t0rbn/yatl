@@ -11,6 +11,7 @@ label.label {
 
     &:has(*[required]) > span:after {
         content: '*';
+        margin-left: var(--size-xxs);
         color: var(--color-accent-danger);
     }
 

@@ -1,4 +1,3 @@
-import {cache} from "react";
 import type {Metadata} from "next";
 import {prisma} from "@/utils/prisma-connection";
 import Lane from "./lane/Lane";
@@ -9,16 +8,27 @@ import {AddTaskButton} from "./AddTaskButton";
 import {BackToProjectsButton} from "./BackToProjectsButton";
 import {Project, TaskStatus} from "../../../../prisma/generated/prisma/client";
 import {EditProjectButton} from "./EditProjectButton";
+import {cacheTag} from "next/cache";
 
-export const dynamic = "force-dynamic";
+const getProject = async (id: string) => {
+    "use cache";
+    cacheTag(`projects:${id}`)
+    return prisma.project.findUnique({where: {id}})
+}
 
-const getProject = cache((id: string) =>
-    prisma.project.findUnique({where: {id}})
-);
+const getTasksForProject = async (projectId: string) => {
+    "use cache"
+    cacheTag(`tasks-for-project:${projectId}`)
+
+    return prisma.task.findMany({
+        where: {projectId},
+        orderBy: {statusUpdatedAt: 'asc'}
+    })
+
+}
 
 export async function generateMetadata({params}: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const {id} = await params;
-
 
     const project = await getProject(id);
     if (!project) {
@@ -34,13 +44,8 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
     if (!project) {
         return notFound();
     }
-
-    const tasks = await prisma.task.findMany({
-        where: {projectId},
-        orderBy: {statusUpdatedAt: 'asc'}
-    })
+    const tasks = await getTasksForProject(projectId)
     const tasksByStatus = (status: TaskStatus) => tasks.filter(t => t.status === status)
-
 
     return <HeaderContentLayout
         title={project.name}
@@ -56,6 +61,4 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
             <Lane status="ARCHIVED" name="Archived" tasks={tasksByStatus('ARCHIVED')}/>
         </div>
     </HeaderContentLayout>
-
-
 }

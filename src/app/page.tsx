@@ -5,14 +5,15 @@ import {ProjectCard} from "./project-card/ProjectCard";
 import {HeaderContentLayout} from "@/components/layout/header-content-layout/HeaderContentLayout";
 import {CreateProjectButton} from "./CreateProjectButton";
 import {Project} from "../../prisma/generated/prisma/client";
-
-export const dynamic = "force-dynamic"
+import {cacheTag} from "next/cache";
 
 export const metadata: Metadata = {
     title: "Projects | YATL",
 };
 
 export default async function ProjectsPage() {
+    "use cache"
+    cacheTag('projects')
     const projects: Array<Project> = await prisma.project.findMany({
         orderBy: {createdAt: 'asc'}
     })

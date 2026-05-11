@@ -1,7 +1,7 @@
 "use server"
 
 import {prisma} from "@/utils/prisma-connection";
-import {revalidatePath} from "next/cache";
+import { updateTag} from "next/cache";
 
 export async function createOrEditProject(formData: FormData): Promise<string> {
     const id = formData.get('id') as string;
@@ -13,7 +13,8 @@ export async function createOrEditProject(formData: FormData): Promise<string> {
 
     if (!id) {
         const created = await prisma.project.create({data: {name}});
-        revalidatePath('/');
+        updateTag('projects')
+        updateTag(`projects:${created.id}`)
         return created.id;
     }
 
@@ -23,7 +24,8 @@ export async function createOrEditProject(formData: FormData): Promise<string> {
     }
 
     const updated = await prisma.project.update({where: {id}, data: {name}});
-    revalidatePath('/');
+    updateTag('projects')
+    updateTag(`projects:${updated.id}`)
     return updated.id
 }
 
@@ -39,5 +41,6 @@ export async function deleteProject(id: string): Promise<void> {
     }
 
     await prisma.project.delete({where: {id}})
-    revalidatePath('/');
+    updateTag(`projects:${id}`)
+    updateTag('projects')
 }

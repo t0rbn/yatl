@@ -1,7 +1,7 @@
 "use server"
 import {prisma} from "@/utils/prisma-connection";
 import {Prisma, TaskStatus} from "../../../../prisma/generated/prisma/client";
-import {revalidatePath} from "next/cache";
+import {updateTag} from "next/cache";
 
 function isTaskStatus(value: string): value is TaskStatus {
     return (Object.values(TaskStatus) as string[]).includes(value);
@@ -34,7 +34,7 @@ export async function createOrEditTask(formData: FormData): Promise<void> {
         }
 
         await prisma.task.create({data: {projectId, name, description, status}});
-        revalidatePath(`/boards/${projectId}`);
+        updateTag(`tasks-for-project:${projectId}`)
         return;
     }
 
@@ -48,7 +48,7 @@ export async function createOrEditTask(formData: FormData): Promise<void> {
         data.statusUpdatedAt = new Date();
     }
     await prisma.task.update({where: {id}, data});
-    revalidatePath(`/boards/${projectId}`);
+    updateTag(`tasks-for-project:${projectId}`)
 }
 
 
@@ -64,7 +64,7 @@ export async function deleteTask(taskId: string): Promise<void> {
 
     await prisma.task.delete({where: {id: taskId}});
     if (existing.projectId) {
-        revalidatePath(`/boards/${existing.projectId}`);
+        updateTag(`tasks-for-project:${existing.projectId}`)
     }
 }
 
@@ -86,5 +86,5 @@ export async function updateStatus(taskId: string, status: TaskStatus): Promise<
         where: {id: taskId},
         data: {status, statusUpdatedAt: new Date()}
     });
-    revalidatePath(`/boards/${task.projectId}`);
+    updateTag(`tasks-for-project:${existing.projectId}`)
 }
