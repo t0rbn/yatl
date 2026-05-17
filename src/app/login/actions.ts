@@ -7,6 +7,10 @@ import {ServerActionResponse} from "@/utils/server-action-response";
 import {redirect} from "next/navigation";
 
 export async function signup(formData: FormData): Promise<ServerActionResponse<string>> {
+    if (process.env.NEXT_PUBLIC_ENABLE_SIGNUP !== 'true') {
+        return {success: false, error: 'Signup disabled'}
+    }
+
     const username = formData.get("username") as string | null;
     const password = formData.get("password") as string | null;
     const passwordRepeat = formData.get("password_repeat") as string | null;
@@ -31,7 +35,7 @@ export async function signup(formData: FormData): Promise<ServerActionResponse<s
     const user = await prisma.user.create({data: {login: username, passwordHash}});
 
     await setSessionCookie(user.id);
-    redirect('/boards')
+    return {success: true, payload: user.id};
 }
 
 export async function login(formData: FormData): Promise<ServerActionResponse<string>> {

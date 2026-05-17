@@ -11,7 +11,7 @@ interface AppHeaderProps {
 
 export function HeaderContentLayout(props: PropsWithChildren<AppHeaderProps>) {
     return <div className={styles.headerContentLayout}>
-        <header className={classNames(globalStyles.glass, styles.appHeader)}>
+        <header className={classNames(globalStyles.glass, styles.appHeader)} key="header">
             <h1>{props.title}</h1>
             {props.actionButtons?.map((b,i) => <div key={i} className={styles.buttonContainer}>{b}</div>)}
         </header>

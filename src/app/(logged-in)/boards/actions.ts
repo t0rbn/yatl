@@ -20,7 +20,7 @@ export async function createOrEditProject(formData: FormData): Promise<ServerAct
 
     if (!id) {
         const created = await prisma.project.create({data: {name, userId}});
-        updateTag('projects')
+        updateTag(`projects:user:${userId}`)
         updateTag(`projects:${created.id}`)
         return {success: true, payload: created.id};
     }
@@ -32,7 +32,7 @@ export async function createOrEditProject(formData: FormData): Promise<ServerAct
     }
 
     const updated = await prisma.project.update({where: {id}, data: {name}});
-    updateTag('projects')
+    updateTag(`projects:user:${userId}`)
     updateTag(`projects:${updated.id}`)
     return {success: true, payload: updated.id};
 }
@@ -54,7 +54,7 @@ export async function deleteProject(id: string): Promise<ServerActionResponse<nu
     }
 
     await prisma.project.delete({where: {id}})
+    updateTag(`projects:user:${userId}`)
     updateTag(`projects:${id}`)
-    updateTag('projects')
     return {success: true, payload: null}
 }

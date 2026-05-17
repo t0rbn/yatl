@@ -6,17 +6,14 @@
     padding: 0;
 
 
-    transition: all ease-out var(--animation-duration);
-    @starting-style {
-        opacity: 0;
-        transform: scale(.9);
-    }
-
-
+    transition: all ease-out var(--animation-duration-interaction);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    animation: fadeIn ease-out both var(--animation-duration);
+    animation-delay: calc((sibling-index() - 1) * var(--animation-duration) * .25);
 
     strong {
         text-align: center;
@@ -27,5 +24,14 @@
             background-color: var(--color-surface-interactive-hover);
         }
     }
+}
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(.9);
+    }
+    to {
+
+    }
 }

@@ -7,10 +7,21 @@ import {CreateProjectButton} from "./CreateProjectButton";
 import {Project} from "../../../../prisma/generated/prisma/client";
 import {getCurrentUserId} from "@/utils/session";
 import {LogoutButton} from "@/app/login/LogoutButton";
+import {cacheTag} from "next/cache";
 
 export const metadata: Metadata = {
     title: "Projects | YATL",
 };
+
+async function getProjectsForUser(userId: string): Promise<Array<Project>> {
+    "use cache"
+    cacheTag(`projects:user:${userId}`)
+
+    return prisma.project.findMany({
+        where: {userId: userId},
+        orderBy: {createdAt: 'asc'}
+    });
+}
 
 export default async function ProjectsPage() {
     const currentUser = await getCurrentUserId();
@@ -18,14 +29,11 @@ export default async function ProjectsPage() {
         return null
     }
 
-    const projects: Array<Project> = await prisma.project.findMany({
-        where: {userId: currentUser},
-        orderBy: {createdAt: 'asc'}
-    })
+    const projects = await getProjectsForUser(currentUser);
 
     return <HeaderContentLayout title="Projects" actionButtons={[
         <CreateProjectButton/>,
-        <LogoutButton />
+        <LogoutButton/>
     ]}>
         <div className={styles.grid}>
             {projects.map((project) => <ProjectCard key={project.id} project={project}/>)}

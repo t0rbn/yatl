@@ -2,6 +2,7 @@ html.root {
     --color-bg-top: hsl(200 100% 75%);
     --color-bg-left: hsl(40 100% 75%);
     --color-bg-right: hsl(300 100% 75%);
+
     --color-surface-interactive: hsl(0 0% 100% / .5);
     --color-surface-interactive-hover: hsl(0 0% 100% / .75);
 

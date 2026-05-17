@@ -9,6 +9,7 @@ import {useRouter} from "next/navigation";
 import styles from "./page.module.css"
 import globalStyles from "@/globals.module.css"
 import {classNames} from "@/utils/classnames";
+import {ErrorBar} from "@/components/error-bar/ErrorBar";
 
 export default function LoginPage() {
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -25,6 +26,12 @@ export default function LoginPage() {
         router.push('/boards')
     }
 
+    const signUpButton = () => {
+        if (process.env.NEXT_PUBLIC_ENABLE_SIGNUP !== 'true') {
+            return null
+        }
+        return <Button variant="text" icon="person_add" label="Create Account" onClick={() => router.push('/login/signup')}/>
+    }
 
     return <div className={classNames(globalStyles.glass, styles.container)}>
         <form action={handleSubmit}>
@@ -32,10 +39,10 @@ export default function LoginPage() {
                 <h1>Login</h1>
                 <TextInput label="User" required name="username"/>
                 <TextInput label="Password" required type="password" name="password"/>
-                {errorMessage ? <p>{errorMessage}</p> : null}
+                {errorMessage ? <ErrorBar text={errorMessage} /> : null}
                 <ButtonGroup
-                    left={<Button variant="text" label="Create Account" onClick={() => router.push('/login/signup')}/>}
-                    right={<Button type="submit" label="Login"/>}
+                    left={signUpButton()}
+                    right={<Button type="submit" icon="login" label="Login"/>}
                 />
 
             </VerticalContentLayout>

@@ -31,9 +31,10 @@ const getTasksForProject = async (projectId: string) => {
 
 export async function generateMetadata({params}: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const {id} = await params;
+    const currentUser = await getCurrentUserId();
 
     const project = await getProject(id);
-    if (!project) {
+    if (!project || project.userId !== currentUser) {
         return {title: "Project not found | YATL"};
     }
     return {title: `${project.name} | YATL`};

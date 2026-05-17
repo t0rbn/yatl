@@ -1,0 +1,12 @@
+.errorBar {
+    background-color: var(--color-accent-danger);
+    color: #fff;
+    padding: vaR(--size-xs);
+    border-radius: var(--size-xs);
+
+    transition: all ease-out var(--animation-duration);
+    @starting-style {
+        opacity: 0;
+        transform: scale(.9);
+    }
+}

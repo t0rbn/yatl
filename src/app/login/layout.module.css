@@ -1,5 +1,13 @@
 .layout {
-    padding: vaR(--size-xxl);
+    padding-top: var(--size-xxl) ;
     margin: 0 auto;
-    max-width: 40rem;
+    width: 30rem;
+    max-width: 90svw;
+
+    transition: all ease-out var(--animation-duration);
+    @starting-style {
+        opacity: 0;
+        transform: scale(.9)
+    }
+
 }

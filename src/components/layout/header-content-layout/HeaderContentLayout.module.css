@@ -15,10 +15,9 @@
         gap: var(--size-s);
         padding: var(--size-m);
 
-        border:none;
+        border: none;
         border-bottom: var(--border-glass);
         border-radius: 0;
-
 
         h1 {
             flex-grow: 1;
@@ -26,21 +25,10 @@
 
         .buttonContainer {
             transition: all ease-out var(--animation-duration);
+            transition-delay: calc(.25 * sibling-index() * var(--animation-duration));
             @starting-style {
                 opacity: 0;
                 transform: translateX(var(--size-m));
-            }
-
-            &:nth-child(3) {
-                transition-delay: calc(.25 * var(--animation-duration));
-            }
-
-            &:nth-child(4) {
-                transition-delay: calc(.5 * var(--animation-duration));
-            }
-
-            &:nth-child(5) {
-                transition-delay: calc(.75 * var(--animation-duration));
             }
 
         }
