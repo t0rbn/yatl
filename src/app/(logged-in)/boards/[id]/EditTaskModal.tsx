@@ -1,12 +1,12 @@
 "use client";
 
 import {VerticalContentLayout} from "@/components/layout/vertical-content/VerticalContentLayout";
-import {createOrEditTask, deleteTask} from "@/app/boards/[id]/actions";
+import {createOrEditTask, deleteTask} from "@/app/(logged-in)/boards/[id]/actions";
 import {useParams} from "next/navigation";
 import {useModal} from "@/components/modal/modalContext";
 import {HiddenInput, SelectInput, TextArea, TextInput} from "@/components/inputs/Inputs";
 import {Button, ButtonGroup} from "@/components/buttons/Buttons";
-import {Task} from "../../../../prisma/generated/prisma/client";
+import {Task} from "../../../../../prisma/generated/prisma/client";
 
 interface EditTaskModalProps {
     task?: Task

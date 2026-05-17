@@ -1,12 +1,12 @@
 "use client";
 
 import {VerticalContentLayout} from "@/components/layout/vertical-content/VerticalContentLayout";
-import {createOrEditProject, deleteProject} from "@/app/boards/actions";
+import {createOrEditProject, deleteProject} from "@/app/(logged-in)/boards/actions";
 import {useRouter} from "next/navigation";
 import {useModal} from "@/components/modal/modalContext";
 import {HiddenInput, TextInput} from "@/components/inputs/Inputs";
 import {Button, ButtonGroup} from "@/components/buttons/Buttons";
-import {Project} from "../../../prisma/generated/prisma/client";
+import {Project} from "../../../../prisma/generated/prisma/client";
 
 interface EditProjectModalProps {
     project?: Project

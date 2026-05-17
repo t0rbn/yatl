@@ -1,12 +1,12 @@
 import type {Metadata} from "next";
 import {prisma} from "@/utils/prisma-connection";
 import Lane from "./lane/Lane";
-import styles from "@/app/boards/[id]/page.module.css";
+import styles from "@/app/(logged-in)/boards/[id]/page.module.css";
 import {notFound} from "next/navigation";
 import {HeaderContentLayout} from "@/components/layout/header-content-layout/HeaderContentLayout";
 import {AddTaskButton} from "./AddTaskButton";
 import {BackToProjectsButton} from "./BackToProjectsButton";
-import {Project, TaskStatus} from "../../../../prisma/generated/prisma/client";
+import {Project, TaskStatus} from "../../../../../prisma/generated/prisma/client";
 import {EditProjectButton} from "./EditProjectButton";
 import {cacheTag} from "next/cache";
 

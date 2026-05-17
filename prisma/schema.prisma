@@ -13,21 +13,31 @@ datasource db {
 }
 
 model Task {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  statusUpdatedAt DateTime @default(now())
-  project Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId String?
-  name String
-  description String?
-  status TaskStatus @default(TODO)
+  id              String     @id @default(uuid())
+  createdAt       DateTime   @default(now())
+  statusUpdatedAt DateTime   @default(now())
+  project         Project?   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId       String?
+  name            String
+  description     String?
+  status          TaskStatus @default(TODO)
 }
 
 model Project {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  name String
-  tasks Task[]
+  name      String
+  tasks     Task[]
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+}
+
+model User {
+  id           String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  login        String @unique
+  passwordHash String
+  projects     Project[]
 }
 
 enum TaskStatus {

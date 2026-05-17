@@ -4,7 +4,7 @@ import {GridLayout} from "@/components/layout/grid/GridLayout";
 import {ProjectCard} from "./project-card/ProjectCard";
 import {HeaderContentLayout} from "@/components/layout/header-content-layout/HeaderContentLayout";
 import {CreateProjectButton} from "./CreateProjectButton";
-import {Project} from "../../../prisma/generated/prisma/client";
+import {Project} from "../../../../prisma/generated/prisma/client";
 import {cacheTag} from "next/cache";
 
 export const metadata: Metadata = {

@@ -1,5 +1,10 @@
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import bcrypt from "bcryptjs";
 import { PrismaClient } from "./generated/prisma/client";
+
+const SEED_USER_ID = "seed-id";
+const SEED_USER_LOGIN = "seed-user-demo";
+const SEED_USER_PLAIN_PASSWORD = "password";
 
 type SeedTask = {
     id: string;
@@ -131,14 +136,21 @@ async function main() {
     const prisma = new PrismaClient({ adapter });
 
     try {
+        const passwordHash = await bcrypt.hash(SEED_USER_PLAIN_PASSWORD, 12);
+        await prisma.user.upsert({
+            where: { id: SEED_USER_ID },
+            update: { passwordHash, login: SEED_USER_LOGIN },
+            create: { id: SEED_USER_ID, login: SEED_USER_LOGIN, passwordHash },
+        });
+
         await prisma.task.deleteMany({ where: { id: { startsWith: "seed-task-" }, NOT: { id: { in: seedTaskIds } } } });
         await prisma.project.deleteMany({ where: { id: { startsWith: "seed-project-" }, NOT: { id: { in: seedProjectIds } } } });
 
         for (const project of projects) {
             await prisma.project.upsert({
                 where: { id: project.id },
-                update: { name: project.name },
-                create: { id: project.id, name: project.name },
+                update: { name: project.name, userId: SEED_USER_ID },
+                create: { id: project.id, name: project.name, userId: SEED_USER_ID },
             });
 
             for (const task of project.tasks) {

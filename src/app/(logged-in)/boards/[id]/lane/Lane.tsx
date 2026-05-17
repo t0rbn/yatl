@@ -5,10 +5,10 @@ import styles from "./Lane.module.css"
 import {useModal} from "@/components/modal/modalContext";
 import {EditTaskModal} from "../EditTaskModal";
 import {useRouter} from "next/navigation";
-import {updateStatus} from "@/app/boards/[id]/actions";
+import {updateStatus} from "@/app/(logged-in)/boards/[id]/actions";
 import {useState} from "react";
 import {classNames} from "@/utils/classnames";
-import {Task, TaskStatus} from "../../../../../prisma/generated/prisma/client";
+import {Task, TaskStatus} from "../../../../../../prisma/generated/prisma/client";
 
 interface LaneProps {
     name: string;

@@ -14,7 +14,9 @@
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "latest",
     "@prisma/client": "latest",
+    "bcryptjs": "^3.0.3",
     "dotenv": "latest",
+    "jose": "^6.2.3",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"

@@ -11,10 +11,10 @@ export function HiddenInput(props: {name: string, value: any}) {
     return <input type="hidden" readOnly name={props.name} value={props.value}/>
 }
 
-export function TextInput(props: InputProps<string>) {
+export function TextInput(props: InputProps<string> & {type?: 'text' | 'password'}) {
     return <label className={styles.label}>
         <span>{props.label}</span>
-        <input type="text" defaultValue={props.defaultValue} required={props.required} name={props.name}/>
+        <input type={props.type ?? 'text'} defaultValue={props.defaultValue} required={props.required} name={props.name}/>
     </label>
 
 }

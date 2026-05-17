@@ -1,14 +1,20 @@
 "use server"
 import {prisma} from "@/utils/prisma-connection";
-import {Prisma, TaskStatus} from "../../../../prisma/generated/prisma/client";
+import {Prisma, TaskStatus} from "../../../../../prisma/generated/prisma/client";
 import {updateTag} from "next/cache";
 import {ServerActionResponse} from "@/utils/server-action-response";
+import {getCurrentUserId} from "@/utils/session";
 
 function isTaskStatus(value: string): value is TaskStatus {
     return (Object.values(TaskStatus) as string[]).includes(value);
 }
 
 export async function createOrEditTask(formData: FormData): Promise<ServerActionResponse<string>> {
+    const userId = await getCurrentUserId();
+    if (!userId) {
+        return {success: false, error: 'not authenticated'};
+    }
+
     const id = formData.get('id') as string | null;
     const projectId = formData.get('projectId') as string;
     const name = formData.get('name') as string;
@@ -29,7 +35,7 @@ export async function createOrEditTask(formData: FormData): Promise<ServerAction
 
 
     if (!id) {
-        const project = await prisma.project.findUnique({where: {id: projectId}})
+        const project = await prisma.project.findUnique({where: {id: projectId, userId}})
         if (!project) {
             return {success: false, error: `Project with id ${projectId} does not exist`};
         }
@@ -39,8 +45,8 @@ export async function createOrEditTask(formData: FormData): Promise<ServerAction
         return {success: true, payload: created.id};
     }
 
-    const existing = await prisma.task.findUnique({where: {id}});
-    if (!existing) {
+    const existing = await prisma.task.findUnique({where: {id}, include: {project: true}});
+    if (!existing || !existing.project || existing.project.userId !== userId) {
         return {success: false, error: `Task with id ${id} does not exist`};
     }
 
@@ -49,18 +55,25 @@ export async function createOrEditTask(formData: FormData): Promise<ServerAction
         data.statusUpdatedAt = new Date();
     }
     const updated = await prisma.task.update({where: {id}, data});
-    updateTag(`tasks-for-project:${projectId}`)
+    if (existing.projectId) {
+        updateTag(`tasks-for-project:${existing.projectId}`)
+    }
     return {success: true, payload: updated.id};
 }
 
 
 export async function deleteTask(taskId: string): Promise<ServerActionResponse<null>> {
+    const userId = await getCurrentUserId();
+    if (!userId) {
+        return {success: false, error: 'not authenticated'};
+    }
+
     if (!taskId) {
         return {success: false, error: 'Missing required fields'};
     }
 
-    const existing = await prisma.task.findUnique({where: {id: taskId}});
-    if (!existing) {
+    const existing = await prisma.task.findUnique({where: {id: taskId}, include: {project: true}});
+    if (!existing || !existing.project || existing.project.userId !== userId) {
         return {success: false, error: `Task with id ${taskId} does not exist`};
     }
 
@@ -72,12 +85,17 @@ export async function deleteTask(taskId: string): Promise<ServerActionResponse<n
 }
 
 export async function updateStatus(taskId: string, status: TaskStatus): Promise<ServerActionResponse<null>> {
+    const userId = await getCurrentUserId();
+    if (!userId) {
+        return {success: false, error: 'not authenticated'};
+    }
+
     if (!taskId) {
         return {success: false, error: 'Missing required fields'};
     }
 
-    const existing = await prisma.task.findUnique({where: {id: taskId}});
-    if (!existing) {
+    const existing = await prisma.task.findUnique({where: {id: taskId}, include: {project: true}});
+    if (!existing || !existing.project || existing.project.userId !== userId) {
         return {success: false, error: `Task with id ${taskId} does not exist`};
     }
 
