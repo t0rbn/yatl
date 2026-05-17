@@ -45,12 +45,12 @@ export function ModalProvider({children}: PropsWithChildren) {
     }, []);
 
     useEffect(() => {
-        if (!currentModal) return;
-        const dialog = windowRef.current;
-        if (!dialog) return;
+        if (!currentModal || ! windowRef.current) {
+            return;
+        }
 
         const previouslyFocused = document.activeElement as HTMLElement | null;
-        dialog.focus();
+        windowRef.current.focus();
 
         const onKey = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && currentModal.closeable !== false) {
