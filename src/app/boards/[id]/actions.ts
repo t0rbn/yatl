@@ -2,12 +2,13 @@
 import {prisma} from "@/utils/prisma-connection";
 import {Prisma, TaskStatus} from "../../../../prisma/generated/prisma/client";
 import {updateTag} from "next/cache";
+import {ServerActionResponse} from "@/utils/server-action-response";
 
 function isTaskStatus(value: string): value is TaskStatus {
     return (Object.values(TaskStatus) as string[]).includes(value);
 }
 
-export async function createOrEditTask(formData: FormData): Promise<void> {
+export async function createOrEditTask(formData: FormData): Promise<ServerActionResponse<string>> {
     const id = formData.get('id') as string | null;
     const projectId = formData.get('projectId') as string;
     const name = formData.get('name') as string;
@@ -16,75 +17,78 @@ export async function createOrEditTask(formData: FormData): Promise<void> {
 
 
     if (!projectId && !id) {
-        throw new Error('Missing required identifier');
+        return {success: false, error: 'Missing required identifier'};
     }
     if (!name) {
-        throw new Error('Missing required field: name');
+        return {success: false, error: 'Missing required field: name'};
     }
 
     if (!isTaskStatus(status)) {
-        throw new Error(`Invalid status: ${status}`);
+        return {success: false, error: `Invalid status: ${status}`};
     }
 
 
     if (!id) {
         const project = await prisma.project.findUnique({where: {id: projectId}})
         if (!project) {
-            throw new Error(`Project with id ${projectId} does not exist`);
+            return {success: false, error: `Project with id ${projectId} does not exist`};
         }
 
-        await prisma.task.create({data: {projectId, name, description, status}});
+        const created = await prisma.task.create({data: {projectId, name, description, status}});
         updateTag(`tasks-for-project:${projectId}`)
-        return;
+        return {success: true, payload: created.id};
     }
 
     const existing = await prisma.task.findUnique({where: {id}});
     if (!existing) {
-        throw new Error(`Task with id ${id} does not exist`);
+        return {success: false, error: `Task with id ${id} does not exist`};
     }
 
     const data: Prisma.TaskUpdateInput = {name, description, status};
     if (existing.status !== status) {
         data.statusUpdatedAt = new Date();
     }
-    await prisma.task.update({where: {id}, data});
+    const updated = await prisma.task.update({where: {id}, data});
     updateTag(`tasks-for-project:${projectId}`)
+    return {success: true, payload: updated.id};
 }
 
 
-export async function deleteTask(taskId: string): Promise<void> {
+export async function deleteTask(taskId: string): Promise<ServerActionResponse<null>> {
     if (!taskId) {
-        throw new Error('Missing required fields');
+        return {success: false, error: 'Missing required fields'};
     }
 
     const existing = await prisma.task.findUnique({where: {id: taskId}});
     if (!existing) {
-        throw new Error(`Task with id ${taskId} does not exist`);
+        return {success: false, error: `Task with id ${taskId} does not exist`};
     }
 
     await prisma.task.delete({where: {id: taskId}});
     if (existing.projectId) {
         updateTag(`tasks-for-project:${existing.projectId}`)
     }
+    return {success: true, payload: null};
 }
 
-export async function updateStatus(taskId: string, status: TaskStatus): Promise<void> {
+export async function updateStatus(taskId: string, status: TaskStatus): Promise<ServerActionResponse<null>> {
     if (!taskId) {
-        throw new Error('Missing required fields');
+        return {success: false, error: 'Missing required fields'};
     }
 
     const existing = await prisma.task.findUnique({where: {id: taskId}});
     if (!existing) {
-        throw new Error(`Task with id ${taskId} does not exist`);
+        return {success: false, error: `Task with id ${taskId} does not exist`};
     }
 
     if (existing.status === status) {
-        return;
+        return {success: true, payload: null};
     }
 
-    const task = await prisma.task.update({
+    await prisma.task.update({
         where: {id: taskId},
         data: {status, statusUpdatedAt: new Date()}
     });
     updateTag(`tasks-for-project:${existing.projectId}`)
+    return {success: true, payload: null};
 }

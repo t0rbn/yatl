@@ -33,13 +33,14 @@ export function EditProjectModal(props: EditProjectModalProps) {
             return
         }
 
-        try {
-            await deleteProject(props.project.id)
-            router.push('/')
-            modal.closeAll()
-        } catch (e) {
-            modal.show({title: "Error", content: <p>{(e as Error).message}</p>})
+        const result = await deleteProject(props.project.id)
+        if (!result.success) {
+            modal.show({title: "Error", content: <p>{result.error}</p>})
+            return
         }
+
+        router.push('/')
+        modal.closeAll()
     }
 
     const handleDeleteButtonClicked = () => {

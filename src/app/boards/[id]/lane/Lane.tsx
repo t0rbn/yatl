@@ -47,13 +47,13 @@ export default function Lane(props: LaneProps) {
     const [dragging, setDragging] = useState<boolean>(false)
     const modal = useModal()
 
-    const handleDrop = (ev: any) => {
+    const handleDrop = async (ev: any) => {
         setDragging(() => false)
         const taskId = ev.dataTransfer.getData('text/plain')
-        updateStatus(taskId, props.status)
-            .catch((e) => modal.show({title: "Error", content: <p>{e.message}</p>}))
-
-
+        const result = await updateStatus(taskId, props.status)
+        if (!result.success) {
+            modal.show({title: "Error", content: <p>{result.error}</p>})
+        }
     }
 
     return <div className={styles.laneContainer}>
