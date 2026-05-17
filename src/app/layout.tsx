@@ -1,6 +1,6 @@
 import type {Metadata} from "next";
 import styles from "./layout.module.css";
-import globals from "./globals.module.css";
+import globals from "../globals.module.css";
 import {classNames} from "../utils/classnames";
 import {ModalProvider} from "@/components/modal/modalContext";
 

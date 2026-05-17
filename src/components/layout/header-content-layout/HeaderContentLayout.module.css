@@ -15,10 +15,10 @@
         gap: var(--size-s);
         padding: var(--size-m);
 
-        background-image: var(--gradient-glass);
+        border:none;
         border-bottom: var(--border-glass);
-        box-shadow: var(--shadow-default);
-        backdrop-filter: var(--blur-glass);
+        border-radius: 0;
+
 
         h1 {
             flex-grow: 1;

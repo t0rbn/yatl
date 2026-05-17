@@ -2,6 +2,7 @@
 
 import {VerticalContentLayout} from "@/components/layout/vertical-content/VerticalContentLayout";
 import styles from "./Lane.module.css"
+import globalStyles from "@/globals.module.css"
 import {useModal} from "@/components/modal/modalContext";
 import {EditTaskModal} from "../EditTaskModal";
 import {useRouter} from "next/navigation";
@@ -59,7 +60,7 @@ export default function Lane(props: LaneProps) {
     return <div className={styles.laneContainer}>
         <h2>{props.name}</h2>
         <div
-            className={classNames(styles.lane, dragging ? styles.dragOver : null)}
+            className={classNames(globalStyles.glass, styles.lane, dragging ? styles.dragOver : null)}
             onDrop={handleDrop}
             onDragOver={e => e.preventDefault()}
             onDragEnter={() => setDragging(true)}

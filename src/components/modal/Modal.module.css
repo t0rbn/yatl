@@ -21,13 +21,6 @@
         width: 30rem;
         max-width: 90svw;
 
-        background-color: transparent;
-        background-image: var(--gradient-glass);
-        border: var(--border-glass);
-
-        padding: var(--size-m);
-        border-radius: var(--size-m);
-        box-shadow: var(--shadow-default);
         position: relative;
 
         header {

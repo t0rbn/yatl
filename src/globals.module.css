@@ -1,5 +1,4 @@
 html.root {
-
     --color-bg-top: hsl(200 100% 75%);
     --color-bg-left: hsl(40 100% 75%);
     --color-bg-right: hsl(300 100% 75%);
@@ -22,11 +21,22 @@ html.root {
     --size-xl: 2rem;
     --size-xxl: 5rem;
 
-    --border-glass: var(--size-xxs) solid hsl(0 0% 100% / .5);
-    --shadow-default: 0 0 var(--size-m) hsl(0 0% 0% / .1);
+    --border-glass: var(--size-xxs) solid hsl(0 0% 100% / .25);
+    --shadow-default: 0 0 var(--size-l) hsl(0 0% 0% / .1);
     --blur-glass: blur(var(--size-l));
 
     --animation-duration: .2s;
     --animation-duration-interaction: .1s;
 }
 
+.glass {
+    background-color: transparent;
+    background-image: var(--gradient-glass);
+    border: var(--border-glass);
+    border-top-color: hsl(0 0% 100% / .75);
+
+    padding: var(--size-m);
+    /* default radius + default padding */
+    border-radius: calc(2 * var(--size-m));
+    box-shadow: var(--shadow-default);
+}

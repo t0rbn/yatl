@@ -11,7 +11,9 @@ import React, {
     useState
 } from "react";
 import styles from "./Modal.module.css";
+import globalStyles from "@/globals.module.css";
 import {Button} from "@/components/buttons/Buttons";
+import {classNames} from "@/utils/classnames";
 
 interface ModalProps {
     title: string,
@@ -76,7 +78,7 @@ export function ModalProvider({children}: PropsWithChildren) {
             {currentModal && (
                 <div className={styles.backDrop} key="modal-backdrop">
                     <div ref={windowRef} role="dialog" aria-modal="true" aria-label={currentModal.title}
-                         tabIndex={-1} className={styles.window} key="modal">
+                         tabIndex={-1} className={classNames(globalStyles.glass, styles.window)} key="modal">
                         <header>
                             <h2>{currentModal.title}</h2>
                             {currentModal.closeable !== false && (

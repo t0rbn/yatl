@@ -18,7 +18,7 @@ async function signSession(userId: string): Promise<string> {
         .sign(encodedKey);
 }
 
-async function verifySession(token: string): Promise<{userId: string} | null> {
+export async function verifySession(token: string): Promise<{userId: string} | null> {
     try {
         const {payload} = await jwtVerify(token, encodedKey, {algorithms: ["HS256"]});
         if (typeof payload.sub !== "string" || payload.sub.length === 0) {

@@ -44,13 +44,16 @@
 
     &.danger {
         --button-color: var(--color-accent-danger);
+        &.textVariant {
+            color: var(--button-color);
+        }
     }
 
     &.textVariant {
         background-color: transparent;
         background-image: none;
         border: none;
-        color: var(--button-color);
+        color: var(--color-text-base);
         padding: 0;
 
         &:not(:has(.label)) .icon {

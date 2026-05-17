@@ -27,10 +27,10 @@ export function Button(props: ButtonProps) {
     </button>
 }
 
-export function ButtonGroup(props: { left: React.ReactNode, right: React.ReactNode }) {
+export function ButtonGroup(props: { left?: React.ReactNode, right?: React.ReactNode }) {
     return <div className={styles.buttonGroup}>
-        {props.left}
+        {props.left ?? null}
         <div className={styles.spacer}/>
-        {props.right}
+        {props.right ?? null}
     </div>
 }

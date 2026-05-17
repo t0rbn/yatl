@@ -17,15 +17,13 @@ export function EditProjectModal(props: EditProjectModalProps) {
     const modal = useModal();
 
     const handleAddOrUpdate = async (data: FormData) => {
-        try {
-            const id = await createOrEditProject(data)
-            if (!props.project) {
-                router.push(`/boards/${id}`)
-            }
-            modal.close()
-        } catch (e) {
-            modal.show({title: "Error", content: <p>{(e as Error).message}</p>})
+        const res = await createOrEditProject(data)
+        if (!res.success) {
+            modal.show({title: "Error", content: <p>{res.error}</p>})
+            return
         }
+
+        router.push(`/boards/${res.payload}`)
     }
 
     const handleDelete = async () => {

@@ -9,6 +9,8 @@ import {BackToProjectsButton} from "./BackToProjectsButton";
 import {Project, TaskStatus} from "../../../../../prisma/generated/prisma/client";
 import {EditProjectButton} from "./EditProjectButton";
 import {cacheTag} from "next/cache";
+import {LogoutButton} from "@/app/login/LogoutButton";
+import {getCurrentUserId} from "@/utils/session";
 
 const getProject = async (id: string) => {
     "use cache";
@@ -38,10 +40,12 @@ export async function generateMetadata({params}: { params: Promise<{ id: string 
 }
 
 export default async function ProjectsPage({params}: { params: Promise<{ id: string }> }) {
+    const currentUser = await getCurrentUserId();
+
     const projectId = (await params).id;
 
     const project: Project | null = await getProject(projectId);
-    if (!project) {
+    if (!project || project.userId !== currentUser) {
         return notFound();
     }
     const tasks = await getTasksForProject(projectId)
@@ -52,7 +56,8 @@ export default async function ProjectsPage({params}: { params: Promise<{ id: str
         actionButtons={[
             <AddTaskButton projectId={projectId}/>,
             <BackToProjectsButton/>,
-            <EditProjectButton project={project}/>
+            <EditProjectButton project={project}/>,
+            <LogoutButton />
         ]}>
         <div className={styles.board}>
             <Lane status="TODO" name="To Do" tasks={tasksByStatus('TODO')}/>
