@@ -1,7 +1,7 @@
 "use server"
 
 import {prisma} from "@/utils/prisma-connection";
-import { updateTag} from "next/cache";
+import {updateTag} from "next/cache";
 import {ServerActionResponse} from "@/utils/server-action-response";
 import {getCurrentUserId} from "@/utils/session";
 
@@ -25,7 +25,7 @@ export async function createOrEditProject(formData: FormData): Promise<ServerAct
         return {success: true, payload: created.id};
     }
 
-    const existing = await prisma.project.findUnique({where: {id, userId}});
+    const existing = await prisma.project.findUnique({where: {id}});
     if (!existing || existing.userId !== userId) {
         return {success: false, error: `Project with id ${id} does not exist`}
 
@@ -48,8 +48,8 @@ export async function deleteProject(id: string): Promise<ServerActionResponse<nu
         return {success: false, error: 'Missing required fields'}
     }
 
-    const project = await prisma.project.findUnique({where: {id, userId}});
-    if (!project) {
+    const project = await prisma.project.findUnique({where: {id}});
+    if (!project || project.userId !== userId) {
         return {success: false, error: 'Project not found'}
     }
 

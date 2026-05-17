@@ -35,8 +35,8 @@ export async function createOrEditTask(formData: FormData): Promise<ServerAction
 
 
     if (!id) {
-        const project = await prisma.project.findUnique({where: {id: projectId, userId}})
-        if (!project) {
+        const project = await prisma.project.findUnique({where: {id: projectId}})
+        if (!project || project.userId !== userId) {
             return {success: false, error: `Project with id ${projectId} does not exist`};
         }
 
