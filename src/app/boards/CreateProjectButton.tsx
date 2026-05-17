@@ -1,7 +1,7 @@
 "use client";
 
 import {useModal} from "@/components/modal/modalContext";
-import {EditProjectModal} from "@/app/EditProjectModal";
+import {EditProjectModal} from "@/app/boards/EditProjectModal";
 import {Button} from "@/components/buttons/Buttons";
 
 

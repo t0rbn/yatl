@@ -1,7 +1,7 @@
 'use client';
 
 import {useModal} from "@/components/modal/modalContext";
-import {EditProjectModal} from "../../EditProjectModal";
+import {EditProjectModal} from "../EditProjectModal";
 import {Button} from "@/components/buttons/Buttons";
 import {Project} from "../../../../prisma/generated/prisma/client";
 
